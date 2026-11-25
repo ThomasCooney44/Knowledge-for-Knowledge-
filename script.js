@@ -68,6 +68,9 @@ const fallbackArtwork = {
 
 const $ = id => document.getElementById(id);
 const key = 'kfk-demo-v2';
+const pilotKey = 'kfk-pilot-response-v1';
+let pilotResponse = null;
+try { pilotResponse = JSON.parse(localStorage.getItem(pilotKey)); } catch {}
 const fresh = () => ({ tokens: 0, offers: [], booked: [], interest: 0 });
 let state = fresh();
 
@@ -114,19 +117,37 @@ function modal(title, text, actions = []) {
 }
 
 function close() {
-  $('modal').close();
+  if ($('modal').open) $('modal').close();
 }
 
-function showInterest() {
-  if (INTEREST_FORM_URL) {
-    window.open(INTEREST_FORM_URL, '_blank', 'noopener,noreferrer');
-    return;
-  }
-  modal(
-    'Register your interest',
-    'This demo has no connected research form yet. You can record a practice interest action on this device only.',
-    [btn('Register demo interest', () => { state.interest++; save(); close(); notify('Demo interest recorded on this device.'); })]
-  );
+function showInterest(lesson) {
+  close();
+  if (lesson && lesson.title) $('pilotLearn').value = lesson.title;
+  location.hash = 'pilot';
+  $('pilotLearn').focus({preventScroll:true});
+}
+
+function updatePilot() {
+  const status = $('pilotStatus');
+  $('exportPilot').hidden = !pilotResponse;
+  status.textContent = pilotResponse ? 'Response saved on this device. Download and share it with the project team if you choose.' : '';
+}
+
+function csvField(value) {
+  let s = String(value ?? '');
+  if (/^[=+\-@\t\r\n]/.test(s)) s = "'" + s;
+  return '"' + s.replace(/"/g, '""') + '"';
+}
+
+function exportPilot() {
+  if (!pilotResponse) return;
+  const fields = ['submitted_at','learn','willingness','teach','time','format'];
+  const csv = fields.map(csvField).join(',') + '\r\n' + fields.map(k => csvField(pilotResponse[k])).join(',') + '\r\n';
+  const url = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'knowledge-for-knowledge-pilot.csv';
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function book(lesson) {
@@ -137,7 +158,7 @@ function book(lesson) {
       'You need one token to reserve this sample lesson. List a skill and simulate completing your first teaching session.',
       [
         btn('Teach a skill', () => { close(); location.hash = 'teach'; }),
-        btn('Register interest', showInterest, 'button secondary')
+        btn('Express pilot interest', () => showInterest(lesson), 'button secondary')
       ]
     );
     return;
@@ -166,6 +187,9 @@ function makeArtwork(lesson) {
     const img = document.createElement('img');
     img.src = lesson.image;
     img.alt = lesson.alt || lesson.title;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.addEventListener('error', () => wrapper.replaceChildren(el('div', fallbackArtwork[lesson.category] || '◈', 'lesson-fallback')), {once:true});
     wrapper.append(img);
   } else {
     const fallback = el('div', fallbackArtwork[lesson.category] || '◈', 'lesson-fallback');
@@ -176,6 +200,7 @@ function makeArtwork(lesson) {
 
 function render() {
   $('balance').textContent = state.tokens;
+  $('tokenLabel').textContent = state.tokens === 1 ? 'token' : 'tokens';
 
   $('filters').replaceChildren(...categories.map(c => {
     const b = btn(c, () => { category = c; render(); }, 'filter');
@@ -189,25 +214,29 @@ function render() {
     `${l.title} ${l.desc} ${l.category}`.toLowerCase().includes(query)
   );
 
+  $('resultCount').textContent = visible.length + (visible.length === 1 ? ' lesson' : ' lessons') + ' found';
+  $('clearFilters').hidden = category === 'All' && !query;
   $('lessons').replaceChildren(...visible.map(l => {
     const card = el('article', undefined, 'lesson');
     const body = el('div', undefined, 'lesson-body');
     const booked = state.booked.includes(l.id);
-    const b = btn(booked ? 'Demo booked' : 'Learn this skill', () => book(l));
+    const b = btn(booked ? 'Demo booked' : 'Try demo booking', () => book(l));
     b.disabled = booked;
+    const interest = btn('I want to learn this', () => showInterest(l), 'lesson-interest');
+    interest.setAttribute('aria-label', 'Express pilot interest in ' + l.title);
     body.append(
       el('span', `${l.category} · Sample listing`, 'meta'),
       el('h3', l.title),
       el('p', l.desc),
       el('span', l.format, 'meta'),
       el('span', '◈ 1 token', 'price'),
-      b
+      b, interest
     );
     card.append(makeArtwork(l), body);
     return card;
   }));
 
-  if (!visible.length) $('lessons').append(el('p', 'No lessons match your search.'));
+  if (!visible.length) $('lessons').append(el('p', 'No lessons match. Try another search or clear your filters.', 'empty-state'));
 
   $('myLessons').replaceChildren(...state.offers.map(o => {
     const a = el('div', undefined, 'own');
@@ -220,7 +249,7 @@ function render() {
           o.completed = true;
           state.tokens++;
           save();
-          notify('You earned 1 demo token.');
+          notify('You earned 1 demo token. Explore lessons to spend it.');
         }
       }, 'button secondary'));
     }
@@ -232,7 +261,7 @@ $('teachForm').addEventListener('submit', e => {
   e.preventDefault();
   const data = Object.fromEntries(new FormData(e.currentTarget));
   if (!data.skill.trim() || !data.description.trim()) return;
-  state.offers.push({ ...data, completed: false });
+  state.offers.push({ ...data, skill:data.skill.trim(), description:data.description.trim(), completed: false });
   e.currentTarget.reset();
   save();
   notify('Your demo teaching offer has been listed locally.');
@@ -240,16 +269,46 @@ $('teachForm').addEventListener('submit', e => {
 
 $('search').addEventListener('input', render);
 $('close').addEventListener('click', close);
-$('interest').addEventListener('click', showInterest);
-$('wallet').addEventListener('click', () => modal(
-  'Your demo wallet',
-  `Available tokens: ${state.tokens}. Completed teaching sessions: ${state.offers.filter(o => o.completed).length}. Demo bookings: ${state.booked.length}. This balance is stored only in this browser.`
-));
+$('clearFilters').addEventListener('click', () => { category = 'All'; $('search').value = ''; render(); $('search').focus(); });
+$('pilotForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const answer = Object.fromEntries(new FormData(e.currentTarget));
+  pilotResponse = {...answer, teach:answer.teach.trim(), submitted_at:new Date().toISOString()};
+  let saved = true;
+  try {localStorage.setItem(pilotKey, JSON.stringify(pilotResponse));} catch {saved = false;}
+  updatePilot();
+  if (!saved) $('pilotStatus').textContent = 'Response held temporarily. Download it before leaving this page.';
+  notify(saved ? 'Anonymous response saved locally — not sent.' : 'Response ready to download.');
+});
+$('exportPilot').addEventListener('click', exportPilot);
+if (INTEREST_FORM_URL) {
+  $('externalSurvey').href = INTEREST_FORM_URL;
+  $('externalSurvey').hidden = false;
+}
+if (pilotResponse) {
+  for (const name of ['learn','willingness','teach','time','format']) {
+    const field = $('pilotForm').elements.namedItem(name);
+    if (field && typeof pilotResponse[name] === 'string') field.value = pilotResponse[name];
+  }
+}
+updatePilot();
+$('wallet').addEventListener('click', () => {
+  const booked = examples.filter(l => state.booked.includes(l.id));
+  const actions = [];
+  for (const lesson of booked) actions.push(btn('Cancel ' + lesson.title + ' (+1 token)', () => {
+    if (state.booked.includes(lesson.id)) {
+      state.booked = state.booked.filter(id => id !== lesson.id);
+      state.tokens++; save(); close(); notify('Demo booking cancelled. Token returned.');
+    }
+  }, 'button secondary'));
+  actions.push(btn('Explore lessons', () => { close(); location.hash = 'market'; }));
+  modal('Your demo wallet', 'Available tokens: ' + state.tokens + '. Completed teaching sessions: ' + state.offers.filter(o => o.completed).length + '. Demo bookings: ' + booked.length + '. ' + (booked.length ? 'Your bookings: ' + booked.map(l => l.title).join('; ') + '. ' : '') + 'Stored on this browser only.', actions);
+});
 $('reset').addEventListener('click', () => modal(
   'Reset this demo?',
-  'This will clear your locally stored teaching offers, token balance and demo bookings.',
+  'This will clear your locally stored teaching offers, token balance, demo bookings and anonymous pilot response.',
   [
-    btn('Reset', () => { state = fresh(); save(); close(); notify('Demo reset.'); }),
+    btn('Reset', () => { state = fresh(); pilotResponse = null; try {localStorage.removeItem(pilotKey);} catch {} $('pilotForm').reset(); updatePilot(); save(); close(); notify('Demo reset.'); }),
     btn('Cancel', close, 'button secondary')
   ]
 ));
