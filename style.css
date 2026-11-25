@@ -205,3 +205,65 @@ dialog::backdrop{background:rgba(56,33,21,.5)}
   h1{font-size:clamp(40px,14vw,56px)}
   .lead{font-size:18px}
 }
+
+/* Refinements for the pilot and accessible customer journey */
+[hidden]{display:none!important}
+.skip-link{position:absolute;top:8px;left:12px;z-index:100;background:var(--brand-dark);color:white;padding:10px 16px;border-radius:8px;transform:translateY(-160%)}
+.skip-link:focus{transform:none}
+:focus-visible{outline:3px solid #8c4f2b;outline-offset:4px}
+.hero-benefits{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:24px;color:var(--brand-dark);font-size:13px;font-weight:650}
+.hero-copy,.hero-panel,.hero-card,.lesson-body,.pilot-copy,.teach-copy{min-width:0}
+.hero-panel{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);padding:22px}
+.hero-card img{height:auto;aspect-ratio:4/3}
+.hero-card-copy{padding:12px}
+.hero-coin{width:90px;height:90px}
+.coin-icon{font-size:34px}
+.coin-text{font-size:10px}
+.market-status{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 12px;color:var(--muted);font-size:14px}
+.market-status p{margin:0}
+.lesson-body{flex:1}
+.lesson-body .price{margin-top:auto}
+.lesson-body .button{width:100%}
+.button:disabled{background:#e8ded4;color:#69594e;border-color:#e8ded4;box-shadow:none;cursor:default;transform:none}
+.lesson-interest{background:transparent;border:1px solid #dfcab7;border-radius:999px;color:var(--brand-dark);font-weight:650;padding:10px 14px;transition:background .15s ease}
+.lesson-interest:hover{background:var(--accent-soft)}
+.empty-state{grid-column:1/-1;padding:24px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+.journey-note{background:var(--accent-soft);border:1px solid var(--line);padding:20px;border-radius:16px;margin-top:20px}
+.journey-note p{font-size:15px;margin-top:8px}
+.pilot-section{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:34px;align-items:start;background:#f6e9dc;border-radius:28px;margin:16px 32px;padding:36px}
+.pilot-copy>p:not(.eyebrow){color:var(--muted)}
+.pilot-form{box-shadow:none}
+.pilot-form .small{margin:0}
+.pilot-form .small:empty{display:none}
+.faq-list{max-width:850px}
+.faq-list details{border-bottom:1px solid var(--line);padding:17px 0}
+.faq-list summary{cursor:pointer;font-weight:700}
+.faq-list p{margin:12px 0 0;color:var(--muted)}
+.footer-link{float:right;color:var(--brand);text-decoration:underline}
+dialog{max-height:85vh;overflow:auto;box-shadow:0 20px 65px #39241b33}
+#modalActions .button{white-space:normal;max-width:100%}
+@media(max-width:900px){
+  .main-nav{flex-wrap:wrap;row-gap:7px;column-gap:14px}
+  .hero-panel{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);min-height:0}
+  .hero-card{max-width:none}
+  .pilot-section{grid-template-columns:1fr;margin:12px 20px;padding:24px;gap:22px}
+  .section{scroll-margin-top:140px}
+}
+@media(max-width:560px){
+  .header-inner{gap:10px}
+  .brand{flex:1;min-width:0;font-size:13px}
+  .brand-mark{width:38px;height:38px;flex-shrink:0}
+  .main-nav{font-size:12px}
+  .hero-panel{padding:12px;gap:8px}
+  .hero-coin{width:58px;height:58px}
+  .coin-icon{font-size:24px}
+  .coin-text{font-size:8px}
+  .hero-card{border-radius:12px}
+  .hero-card-copy{padding:8px}
+  .hero-card-copy strong{font-size:12px;line-height:1.25}
+  .hero-card-copy span{font-size:11px}
+  .pilot-section{margin:10px 12px;padding:18px}
+  .teach-form{padding:18px}
+  .sectionhead .badge-note{margin-top:0}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
