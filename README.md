@@ -1,33 +1,24 @@
 # Knowledge for Knowledge
 
-A lightweight GitHub Pages starter website for a university pretotype.
-
-## Concept
-Knowledge for Knowledge is a marketplace where people teach a skill to earn a token, and spend tokens to learn another skill.
+A GitHub Pages pretotype for a peer-to-peer skill exchange. Teach a lesson, earn a demo token, spend it on another lesson.
 
 ## Files
-- `index.html` – structure and content
-- `style.css` – styling and layout
-- `script.js` – demo logic for tokens, filtering and bookings
-- `assets/` – bundled lesson images used in the marketplace
+- index.html, style.css, script.js
+- Six lesson PNG images in the repository root (not in an assets folder).
 
-## Included lesson images
-This updated version includes the user-provided images for:
-- Spanish lessons
-- Excel lessons
-- Photography lessons
+## Deploy
+Settings → Pages → Deploy from a branch → main → / (root).
 
-## How to use
-1. Upload the files to your GitHub repository.
-2. Keep all files in the root, with the `assets` folder beside them.
-3. Enable GitHub Pages from `Settings → Pages → Deploy from a branch → main → / (root)`.
-4. Open the live site URL after deployment.
+## Test the experience
+1. Browse/search/filter the six sample listings.
+2. Try booking with zero tokens. Create a demo teaching offer and simulate completing it.
+3. Confirm a demo booking, inspect the wallet, cancel the booking and verify the token is returned.
+4. Try the separate "I want to learn this" action. Complete the anonymous pilot form, download its CSV, reload, and check persistence.
+5. Reset the demo. No real bookings, lessons, accounts or transfers are created.
 
-## Demo behaviour
-- Teaching offers, token balance and sample bookings are stored only in the browser using localStorage.
-- No real accounts or payments exist.
-- To connect a real sign-up form, add your Google Form link to `INTEREST_FORM_URL` in `script.js`.
+## Research and measurement
+The pilot form captures a desired skill, willingness to teach, optional offered skill, time commitment and preferred format. It saves one anonymous response per browser; it does not transmit it. Visitors can choose to download and share the CSV. Do not ask visitors to include personal information.
 
-## Notes
-- Built with plain HTML, CSS and JavaScript so it works smoothly on GitHub Pages.
-- Designed as a pretotype, not a full marketplace.
+To collect responses centrally, create a team-owned survey containing the same questions, add a privacy notice and set INTEREST_FORM_URL in script.js to its published responder URL. This displays a link to the external survey; it does not automatically submit the local form. Use the survey as the primary collection channel when it is ready. Count distinct responses, proportion willing to teach, offered/requested skill overlap, and time commitments. Do not count simulated token actions as actual demand or completed teaching.
+
+For the pilot, one demo lesson costs one token irrespective of duration; test perceived fairness before building a real marketplace.
