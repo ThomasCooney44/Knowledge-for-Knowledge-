@@ -9,7 +9,7 @@ const examples = [
     category: 'Career & tech',
     format: 'Online · 45 min',
     desc: 'Learn formulas, shortcuts and how to organise your data with confidence.',
-    image: 'assets/excel-lessons.png',
+    image: 'excel-lessons.png',
     alt: 'Laptop showing Excel on screen'
   },
   {
@@ -18,7 +18,7 @@ const examples = [
     category: 'Languages',
     format: 'In person · 30 min',
     desc: 'Practise useful everyday phrases in a relaxed beginner-friendly Spanish session.',
-    image: 'assets/spanish-lessons.png',
+    image: 'spanish-lessons.png',
     alt: 'Illustration for learning Spanish'
   },
   {
@@ -27,7 +27,7 @@ const examples = [
     category: 'Creative',
     format: 'In person · 45 min',
     desc: 'Improve composition, framing and storytelling while learning the foundations of photography.',
-    image: 'assets/photography-lessons.png',
+    image: 'photography-lessons.png',
     alt: 'Person holding a camera for photography lesson'
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     category: 'Career & tech',
     format: 'Online · 60 min',
     desc: 'Get comfortable with variables, loops and simple programs in a beginner session.',
-    image: 'assets/coding-lessons.png',
+    image: 'coding-lessons.png',
     alt: 'Computer screen showing code for a beginner coding lesson'
   },
   {
@@ -45,7 +45,7 @@ const examples = [
     category: 'Creative',
     format: 'In person · 30 min',
     desc: 'Learn your first chords and practise a simple progression with a friendly teacher.',
-    image: 'assets/guitar-lessons.png',
+    image: 'guitar-lessons.png',
     alt: 'Person playing guitar for a guitar lesson'
   },
   {
@@ -54,7 +54,7 @@ const examples = [
     category: 'Lifestyle',
     format: 'Online · 30 min',
     desc: 'Learn how to plan affordable meals for the week without spending too much time.',
-    image: 'assets/meal-prep-lessons.png',
+    image: 'meal-prep-lessons.png',
     alt: 'Prepared meal prep containers for a cooking lesson'
   }
 ];
