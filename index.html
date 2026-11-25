@@ -7,7 +7,7 @@
   <meta name="description" content="Knowledge for Knowledge is a skill-sharing marketplace where people teach to earn tokens and use tokens to learn from others.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Caveat:wght@600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -15,163 +15,163 @@
   <a class="skip-link" href="#home">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#home"><span class="brand-mark">K↔K</span><span>Knowledge for Knowledge</span></a>
-      <nav class="main-nav" aria-label="Primary">
-        <a href="#market">Explore</a>
+      <a class="brand" href="#home">Knowledge for <span>Knowledge</span></a>
+      <nav class="main-nav" aria-label="Sections">
         <a href="#how">How it works</a>
+        <a href="#market">Explore lessons</a>
         <a href="#teach">Teach a skill</a>
         <a href="#pilot">Join the pilot</a>
       </nav>
-      <button id="wallet" class="wallet" type="button" aria-label="Open your demo wallet">◈ <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
+      <button id="wallet" class="wallet" type="button" aria-label="Open your demo wallet"><span class="wallet-label">Wallet</span> <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
     </div>
   </header>
 
   <main id="home" tabindex="-1">
-    <section class="hero">
+    <section class="hero wrap">
       <div class="hero-copy">
-        <p class="eyebrow">THE SKILL EXCHANGE</p>
-        <h1>You teach <span>to learn.</span></h1>
-        <p class="lead">Learn practical skills from other people, without paying for lessons. Teach something you know, earn one token, and exchange it for a lesson in something you want to learn.</p>
+        <p class="eyebrow">For students who want to learn something new</p>
+        <h1>You teach <em>to learn.</em></h1>
+        <p class="lead">Learn practical skills from other students without paying for lessons. Teach something you know, earn one token, and swap it for a lesson in something you want to learn.</p>
         <div class="actions">
           <a class="button" href="#market">Explore lessons</a>
           <a class="button secondary" href="#teach">Share a skill</a>
         </div>
-        <div class="hero-benefits"><span>✓ No lesson fees</span><span>✓ Beginner-friendly</span><span>✓ Learn from peers</span></div>
-        <p class="small">University pretotype · Try the simulated marketplace or express interest in a future pilot.</p>
       </div>
-      <div class="hero-panel" aria-label="Preview of featured skills and token exchange">
-        <article class="hero-card lesson-mini">
-          <img src="spanish-lessons.png" alt="Illustration for Spanish language lessons">
-          <div class="hero-card-copy">
-            <strong>Spanish language</strong>
-            <span>Teach a lesson</span>
-          </div>
-        </article>
-        <div class="hero-coin" aria-hidden="true">
-          <span class="coin-icon">◈</span>
-          <span class="coin-text">1 TOKEN</span>
+      <figure class="paper" role="img" aria-label="A typical private lesson rate card, annotated in red pen with the questions a student on a budget would ask">
+        <div class="paper-head">
+          <span>From</span><span>Private tutoring</span>
+          <span>Subject</span><span>Lesson rates</span>
         </div>
-        <article class="hero-card lesson-mini excel-card">
-          <img src="excel-lessons.png" alt="Laptop showing Microsoft Excel for Excel lessons">
-          <div class="hero-card-copy">
-            <strong>Excel skills</strong>
-            <span>Learn a lesson</span>
-          </div>
-        </article>
-      </div>
+        <p>Thank you for your enquiry. Our rates are below.</p>
+        <p><mark>Conversational Spanish, per hour</mark> <span class="nowrap">... €€€</span></p>
+        <p class="note">↑ on a student budget?</p>
+        <p><mark>Excel for beginners, per hour</mark> <span class="nowrap">... €€€</span></p>
+        <p class="note">↑ I could teach this one myself</p>
+        <p>Payment is due <mark>in advance</mark> of each lesson.</p>
+        <p class="note">↑ what if I swapped a skill instead?</p>
+      </figure>
     </section>
 
-    <section id="how" class="section how-section">
+    <section id="how" class="section wrap">
       <div class="section-heading">
-        <p class="eyebrow">HOW IT WORKS</p>
+        <p class="eyebrow">How it works</p>
         <h2>Share what you know. Learn what you love.</h2>
+        <p class="lead">Every lesson costs one token, and the only way to earn tokens is to teach. Nobody pays, and everybody gives something back.</p>
       </div>
-      <div class="steps">
-        <article>
-          <span>01</span>
-          <h3>Teach a skill</h3>
-          <p>Create a short lesson in something you already know well, from Spanish to Excel to photography.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h3>Earn a token</h3>
-          <p>Complete a teaching session to earn one token. For this demo, you can simulate that completion.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>Learn from someone else</h3>
-          <p>Spend your token on another lesson and keep the cycle of knowledge moving.</p>
-        </article>
+      <div class="split">
+        <ol class="steps">
+          <li><span class="num">1</span><div><strong>Teach a skill</strong><p>List a short lesson in something you know well, from Spanish to Excel to photography.</p></div></li>
+          <li><span class="num">2</span><div><strong>Earn a token</strong><p>Complete a teaching session to earn one token. In this demo you can simulate that.</p></div></li>
+          <li><span class="num">3</span><div><strong>Learn from someone else</strong><p>Spend your token on another student's lesson and keep the exchange moving.</p></div></li>
+        </ol>
+        <div class="callout"><strong>This is a demo.</strong> Tokens, offers and bookings are simulated and stay in this browser. No real lessons, accounts or payments are created.</div>
       </div>
     </section>
 
-    <section id="market" class="section market-section">
+    <section id="market" class="section wrap">
       <div class="sectionhead">
-        <div>
-          <p class="eyebrow">EXPLORE THE MARKETPLACE</p>
-          <h2>Find your next skill.</h2>
+        <div class="section-heading">
+          <p class="eyebrow">Explore the marketplace</p>
+          <h2>Find your next skill</h2>
         </div>
-        <span class="small badge-note">1 lesson = 1 token in this demo</span>
+        <span class="badge-note">1 lesson = 1 token</span>
       </div>
-      <div class="filters" id="filters" aria-label="Filter lessons"></div>
-      <label class="search">Search lessons
-        <input id="search" type="search" placeholder="Try Excel, Spanish or photography">
-      </label>
+      <div class="market-tools">
+        <div class="filters" id="filters" aria-label="Filter lessons"></div>
+        <label class="search"><span>Search lessons</span>
+          <input id="search" type="search" placeholder="Try Excel, Spanish or photography">
+        </label>
+      </div>
       <div class="market-status"><p id="resultCount" role="status"></p><button class="textbutton" id="clearFilters" type="button" hidden>Clear filters</button></div>
       <div id="lessons" class="cards"></div>
     </section>
 
-    <section id="teach" class="section teach-section">
+    <section id="teach" class="section wrap split">
       <div class="teach-copy">
-        <p class="eyebrow">EVERYONE HAS SOMETHING TO SHARE</p>
-        <h2>Turn your knowledge into opportunity.</h2>
-        <p>Whether you can help someone use Excel, practise Spanish, take better photos or cook affordable meals, your skills can unlock something valuable for someone else.</p>
-        <p class="small">Try the teaching journey below. Your demo offer stays on this device; it is not advertised to real learners.</p>
-        <div class="journey-note"><strong>Your first token</strong><p>1. List a skill you could teach.<br>2. Simulate completing your session.<br>3. Use your token to try a demo booking.</p></div>
+        <p class="eyebrow">Everyone has something to share</p>
+        <h2>Turn what you know into your first token</h2>
+        <p class="lead">Whether you can help someone use Excel, practise Spanish, take better photos or cook cheap meals, your skill is worth a lesson to someone else.</p>
+        <ol class="steps compact">
+          <li><span class="num">1</span><div><strong>List a skill you could teach</strong></div></li>
+          <li><span class="num">2</span><div><strong>Simulate completing your session</strong></div></li>
+          <li><span class="num">3</span><div><strong>Use your token on a demo booking</strong></div></li>
+        </ol>
+        <p class="small">Your demo offer stays on this device. It is not shown to real learners.</p>
       </div>
-      <form id="teachForm" class="teach-form">
-        <label>What can you teach?
-          <input name="skill" required maxlength="80" placeholder="e.g. Beginner Excel shortcuts">
-        </label>
-        <label>Category
-          <select name="category">
-            <option>Career & tech</option>
-            <option>Languages</option>
-            <option>Creative</option>
-            <option>Lifestyle</option>
-          </select>
-        </label>
-        <label>Lesson format
-          <select name="format">
-            <option>Online · 30 min</option>
-            <option>In person · 30 min</option>
-            <option>Online · 60 min</option>
-            <option>In person · 60 min</option>
-          </select>
-        </label>
-        <label>What will someone learn?
-          <textarea name="description" required maxlength="240" placeholder="Describe what your lesson covers"></textarea>
-        </label>
-        <button class="button" type="submit">Create demo teaching offer</button>
-        <div id="myLessons" aria-live="polite"></div>
+      <form id="teachForm" class="panel">
+        <div class="panel-head"><span class="mono">Your teaching offer</span></div>
+        <div class="panel-body">
+          <label>What can you teach?
+            <input name="skill" required maxlength="80" placeholder="e.g. Beginner Excel shortcuts">
+          </label>
+          <div class="field-row">
+            <label>Category
+              <select name="category">
+                <option>Career & tech</option>
+                <option>Languages</option>
+                <option>Creative</option>
+                <option>Lifestyle</option>
+              </select>
+            </label>
+            <label>Lesson format
+              <select name="format">
+                <option>Online · 30 min</option>
+                <option>In person · 30 min</option>
+                <option>Online · 60 min</option>
+                <option>In person · 60 min</option>
+              </select>
+            </label>
+          </div>
+          <label>What will someone learn?
+            <textarea name="description" required maxlength="240" placeholder="Describe what your lesson covers"></textarea>
+          </label>
+          <button class="button" type="submit">Create demo teaching offer</button>
+          <div id="myLessons" aria-live="polite"></div>
+        </div>
       </form>
     </section>
 
-    <section id="pilot" class="section pilot-section">
+    <section id="pilot" class="section wrap split">
       <div class="pilot-copy">
-        <p class="eyebrow">HELP SHAPE THE FIRST PILOT</p>
+        <p class="eyebrow">Help shape the first pilot</p>
         <h2>What would you exchange?</h2>
-        <p>Tell us what you would genuinely like to learn and whether you would be willing to teach in return. This is a separate research exercise, not a booking.</p>
-        <p class="small" id="pilotStorageNote">Your anonymous response stays on this device unless you choose to share the downloaded response with the project team. Please do not include names, email addresses or other personal information.</p>
+        <p class="lead">Tell us what you would genuinely like to learn and whether you would teach in return. This is a separate research question, not a booking.</p>
+        <div class="callout" id="pilotStorageNote"><strong>Keep it anonymous.</strong> Your response stays on this device unless you choose to download it and share it with the project team. Please do not include names, email addresses or other personal information.</div>
         <a id="externalSurvey" class="button secondary" target="_blank" rel="noopener noreferrer" hidden>Open the team's research form ↗</a>
       </div>
-      <form id="pilotForm" class="teach-form pilot-form">
-        <label>What would you like to learn?
-          <select name="learn" id="pilotLearn" required>
-            <option value="">Choose a skill</option>
-            <option>Excel for everyday work</option><option>Conversational Spanish</option><option>Better photography basics</option><option>Your first Python script</option><option>Guitar for complete beginners</option><option>Student-friendly meal prep</option><option>Something else</option>
-          </select>
-        </label>
-        <label>Would you teach a lesson to earn a learning token?
-          <select name="willingness" required><option value="">Choose an answer</option><option>Yes</option><option>Maybe</option><option>No</option></select>
-        </label>
-        <label>What skill could you teach? (Optional)
-          <input name="teach" maxlength="100" placeholder="e.g. PowerPoint, French, cooking">
-        </label>
-        <label>How much time could you realistically give each week?
-          <select name="time" required><option value="">Choose an answer</option><option>None at present</option><option>Up to 30 minutes</option><option>30–60 minutes</option><option>More than an hour</option></select>
-        </label>
-        <label>Preferred lesson format
-          <select name="format" required><option value="">Choose an answer</option><option>Online</option><option>In person</option><option>Either</option></select>
-        </label>
-        <button class="button" type="submit">Save anonymous pilot response</button>
-        <p id="pilotStatus" class="small" role="status"></p>
-        <button class="button secondary" id="exportPilot" type="button" hidden>Download response (CSV)</button>
+      <form id="pilotForm" class="panel">
+        <div class="panel-head"><span class="mono">Pilot survey · 5 questions</span></div>
+        <div class="panel-body">
+          <label>What would you like to learn?
+            <select name="learn" id="pilotLearn" required>
+              <option value="">Choose a skill</option>
+              <option>Excel for everyday work</option><option>Conversational Spanish</option><option>Better photography basics</option><option>Your first Python script</option><option>Guitar for complete beginners</option><option>Student-friendly meal prep</option><option>Something else</option>
+            </select>
+          </label>
+          <label>Would you teach a lesson to earn a learning token?
+            <select name="willingness" required><option value="">Choose an answer</option><option>Yes</option><option>Maybe</option><option>No</option></select>
+          </label>
+          <label>What skill could you teach? (Optional)
+            <input name="teach" maxlength="100" placeholder="e.g. PowerPoint, French, cooking">
+          </label>
+          <label>How much time could you realistically give each week?
+            <select name="time" required><option value="">Choose an answer</option><option>None at present</option><option>Up to 30 minutes</option><option>30–60 minutes</option><option>More than an hour</option></select>
+          </label>
+          <label>Preferred lesson format
+            <select name="format" required><option value="">Choose an answer</option><option>Online</option><option>In person</option><option>Either</option></select>
+          </label>
+          <button class="button" type="submit">Save anonymous pilot response</button>
+          <p id="pilotStatus" class="small" role="status"></p>
+          <button class="button secondary" id="exportPilot" type="button" hidden>Download response (CSV)</button>
+        </div>
       </form>
     </section>
-    <section class="section faq-section" id="faq">
-      <p class="eyebrow">GOOD TO KNOW</p>
-      <h2>Frequently asked questions.</h2>
+
+    <section class="section wrap" id="faq">
+      <div class="section-heading">
+        <p class="eyebrow">Good to know</p>
+        <h2>Frequently asked questions</h2>
+      </div>
       <div class="faq-list">
         <details><summary>Do I need to be an expert to teach?</summary><p>No. In the proposed marketplace, you would share a skill you are comfortable explaining to a beginner. Describe your experience honestly.</p></details>
         <details><summary>How much does a lesson cost?</summary><p>The demo uses one token per lesson, regardless of the displayed duration. Tokens are not money and have no cash value. We are testing whether this exchange feels fair.</p></details>
@@ -182,10 +182,10 @@
   </main>
 
   <footer class="site-footer">
-    <a href="#faq" class="footer-link">FAQs</a>
-    <strong>Knowledge for Knowledge</strong>
-    <p>University project pretotype. No real bookings, payments or token transfers take place.</p>
-    <button id="reset" class="textbutton" type="button">Reset demo</button>
+    <div class="wrap">
+      <p><strong>About this project.</strong> Knowledge for Knowledge is a university project pretotype. No real bookings, payments or token transfers take place.</p>
+      <p><a href="#faq">FAQs</a> · <button id="reset" class="textbutton" type="button">Reset demo</button></p>
+    </div>
   </footer>
 
   <dialog id="modal" aria-labelledby="modalTitle" aria-describedby="modalText">
