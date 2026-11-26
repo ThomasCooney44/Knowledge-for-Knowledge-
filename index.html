@@ -21,9 +21,10 @@
         <a href="#why">Why swap</a>
         <a href="#how">How it works</a>
         <a href="#teach">Teach a skill</a>
+        <a href="#tokens">My tokens</a>
         <a href="#pilot">Join the pilot</a>
       </nav>
-      <button id="wallet" class="wallet" type="button" aria-label="Open your demo wallet"><img class="token-icon" src="token.png" alt="" aria-hidden="true"> <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
+      <button id="wallet" class="wallet" type="button" aria-label="Open your token dashboard"><img class="token-icon" src="token.png" alt="" aria-hidden="true"> <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
     </div>
   </header>
 
@@ -120,6 +121,54 @@
           <span>03</span>
           <h3>Learn from someone else</h3>
           <p>Spend your token on another lesson and keep the cycle of knowledge moving.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="tokens" class="section dashboard-section" tabindex="-1">
+      <div class="section-heading">
+        <p class="eyebrow">YOUR TOKEN DASHBOARD</p>
+        <h2>Track what you give and what you get.</h2>
+        <p class="section-lead">Every lesson you teach adds a token. Every lesson you take spends one. Your demo progress is saved on this device only.</p>
+      </div>
+      <div class="dashboard">
+        <article class="dash-card balance-card">
+          <div class="balance-top">
+            <img src="token.png" alt="" class="balance-coin">
+            <div>
+              <span class="dash-label">Current balance</span>
+              <strong class="balance-num"><span id="dashBalance">0</span> <span id="dashBalanceLabel">tokens</span></strong>
+            </div>
+          </div>
+          <div class="next-lesson">
+            <div class="next-head"><span class="dash-label">Progress to your next lesson</span><span id="dashNextPct" class="next-pct">0%</span></div>
+            <div class="bar" role="progressbar" aria-labelledby="dashNext" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="dashNextBarWrap"><span id="dashNextBar"></span></div>
+            <p id="dashNext" class="next-text"></p>
+          </div>
+          <a id="dashCta" class="button" href="#teach">Become a teacher</a>
+        </article>
+
+        <div class="stat-grid">
+          <article class="dash-card stat"><span class="stat-icon" aria-hidden="true">🎓</span><strong id="statTaught">0</strong><span>Lessons taught</span></article>
+          <article class="dash-card stat"><span class="stat-icon" aria-hidden="true">✅</span><strong id="statCompleted">0</strong><span>Lessons completed</span></article>
+          <article class="dash-card stat"><span class="stat-icon gain" aria-hidden="true">＋</span><strong id="statEarned">0</strong><span>Tokens earned</span></article>
+          <article class="dash-card stat"><span class="stat-icon spend" aria-hidden="true">－</span><strong id="statSpent">0</strong><span>Tokens spent</span></article>
+        </div>
+
+        <article class="dash-card milestones-card">
+          <h3>Milestones</h3>
+          <div id="milestones" class="milestones"></div>
+        </article>
+
+        <article class="dash-card leaderboard-card">
+          <div class="card-head"><h3>Community leaderboard</h3><span class="small">Sample members · illustrative</span></div>
+          <ol id="leaderboard" class="leaderboard"></ol>
+        </article>
+
+        <article class="dash-card activity-card">
+          <h3>Your lessons &amp; activity</h3>
+          <div id="myBookings" class="my-bookings"></div>
+          <ul id="activity" class="activity"></ul>
         </article>
       </div>
     </section>

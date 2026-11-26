@@ -106,7 +106,7 @@ const key = 'kfk-demo-v2';
 const pilotKey = 'kfk-pilot-response-v1';
 let pilotResponse = null;
 try { pilotResponse = JSON.parse(localStorage.getItem(pilotKey)); } catch {}
-const fresh = () => ({ tokens: 0, offers: [], booked: [], interest: 0, ratings: {} });
+const fresh = () => ({ tokens: 0, offers: [], booked: [], attended: [], history: [], interest: 0, ratings: {} });
 let state = fresh();
 
 try {
@@ -114,6 +114,8 @@ try {
   if (saved && Number.isInteger(saved.tokens) && Array.isArray(saved.offers) && Array.isArray(saved.booked)) state = saved;
 } catch {}
 if (!state.ratings || typeof state.ratings !== 'object') state.ratings = {};
+if (!Array.isArray(state.attended)) state.attended = [];
+if (!Array.isArray(state.history)) state.history = [];
 
 let category = 'All';
 let timer;
@@ -129,6 +131,11 @@ function el(tag, text, cls) {
   if (text !== undefined) node.textContent = text;
   if (cls) node.className = cls;
   return node;
+}
+
+function logActivity(text, kind) {
+  state.history.unshift({ text, kind, at: Date.now() });
+  state.history = state.history.slice(0, 8);
 }
 
 function tokenPrice() {
@@ -217,6 +224,7 @@ function book(lesson) {
         if (state.tokens > 0 && !state.booked.includes(lesson.id)) {
           state.tokens--;
           state.booked.push(lesson.id);
+          logActivity(`Booked "${lesson.title}"`, 'spend');
           save();
         }
         close();
@@ -288,7 +296,7 @@ function lessonCard(l) {
 function ratingBlock(l) {
   const wrap = el('div', undefined, 'rating-block');
   wrap.append(el('strong', 'Lesson ratings'));
-  const booked = state.booked.includes(l.id);
+  const booked = state.attended.includes(l.id);
   const current = state.ratings[l.id] || 0;
   const stars = el('div', undefined, 'stars');
   stars.setAttribute('role', 'group');
@@ -303,7 +311,7 @@ function ratingBlock(l) {
   }
   wrap.append(stars, el('p', booked
     ? (current ? `Your demo rating: ${current}/5. Stored on this device only.` : 'How was it? Tap a star to rate your demo lesson.')
-    : 'No ratings yet. In the pilot, learners will rate each lesson after it finishes. Book this demo lesson to try it.', 'small'));
+    : 'No ratings yet. In the pilot, learners will rate each lesson after it finishes. Book and complete this demo lesson to try it.', 'small'));
   return wrap;
 }
 
@@ -327,14 +335,132 @@ function viewLesson(l) {
   for (const t of l.availability) slots.append(pill(t, 'slot'));
   avail.append(slots);
   body.push(avail, ratingBlock(l));
-  const book1 = btn(booked ? 'Demo booked' : 'Book with 1 token', () => book(l));
-  book1.disabled = booked;
-  modal(l.title, '', [book1, btn('I want to learn this', () => showInterest(l), 'button secondary')], body);
+  const attended = state.attended.includes(l.id);
+  const actions = [];
+  if (booked && !attended) actions.push(btn('Mark lesson as completed', () => { markAttended(l); viewLesson(l); }));
+  else {
+    const book1 = btn(attended ? 'Lesson completed ✓' : 'Book with 1 token', () => book(l));
+    book1.disabled = booked;
+    actions.push(book1);
+  }
+  actions.push(btn('I want to learn this', () => showInterest(l), 'button secondary'));
+  modal(l.title, '', actions, body);
+}
+
+function markAttended(l) {
+  if (!state.booked.includes(l.id) || state.attended.includes(l.id)) return;
+  state.attended.push(l.id);
+  logActivity(`Completed "${l.title}"`, 'done');
+  save();
+  notify('Lesson marked as completed. Rate it from "View lesson".');
+}
+
+function cancelBooking(l) {
+  if (!state.booked.includes(l.id) || state.attended.includes(l.id)) return;
+  state.booked = state.booked.filter(id => id !== l.id);
+  state.tokens++;
+  logActivity(`Cancelled "${l.title}" · token returned`, 'gain');
+  save();
+  notify('Booking cancelled. Your token has been returned.');
+}
+
+const sampleMembers = [
+  { name: 'Sarah', taught: 14 }, { name: 'Daniel', taught: 11 }, { name: 'Priya', taught: 9 },
+  { name: 'Liam', taught: 6 }, { name: 'Aoife', taught: 4 }, { name: 'Conor', taught: 2 }
+];
+
+function timeAgo(t) {
+  const m = Math.round((Date.now() - t) / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return m + ' min ago';
+  const h = Math.round(m / 60);
+  if (h < 24) return h + ' h ago';
+  return Math.round(h / 24) + ' d ago';
+}
+
+function renderDashboard() {
+  const taught = state.offers.filter(o => o.completed).length;
+  const completed = state.attended.length;
+  const spent = state.booked.length;
+  const pendingOffer = state.offers.find(o => !o.completed);
+  $('dashBalance').textContent = state.tokens;
+  $('dashBalanceLabel').textContent = state.tokens === 1 ? 'token' : 'tokens';
+  $('statTaught').textContent = taught;
+  $('statCompleted').textContent = completed;
+  $('statEarned').textContent = taught;
+  $('statSpent').textContent = spent;
+
+  let pct, text, cta, href;
+  if (state.tokens > 0) {
+    pct = 100; text = `You have ${state.tokens} ${state.tokens === 1 ? 'token' : 'tokens'}: enough for ${state.tokens === 1 ? 'your next lesson' : state.tokens + ' lessons'}.`; cta = 'Choose a lesson'; href = '#market';
+  } else if (pendingOffer) {
+    pct = 50; text = `Your lesson "${pendingOffer.skill}" is listed. Complete it to earn your next token.`; cta = 'Go to my teaching offer'; href = '#teach';
+  } else {
+    pct = 0; text = 'Teach one lesson to earn the token for your next lesson.'; cta = 'Become a teacher'; href = '#teach';
+  }
+  $('dashNextBar').style.width = pct + '%';
+  $('dashNextBarWrap').setAttribute('aria-valuenow', String(pct));
+  $('dashNextPct').textContent = pct + '%';
+  $('dashNext').textContent = text;
+  $('dashCta').textContent = cta;
+  $('dashCta').href = href;
+
+  const milestones = [
+    { name: 'First token', desc: 'Teach your first lesson', value: taught, goal: 1 },
+    { name: 'Community teacher', desc: 'Teach 3 lessons', value: taught, goal: 3 },
+    { name: 'Knowledge swapper', desc: 'Teach or complete 5 lessons', value: taught + completed, goal: 5 }
+  ];
+  $('milestones').replaceChildren(...milestones.map(m => {
+    const done = m.value >= m.goal;
+    const row = el('div', undefined, 'milestone' + (done ? ' done' : ''));
+    const top = el('div', undefined, 'milestone-top');
+    const label = el('div');
+    label.append(el('strong', (done ? '🏅 ' : '') + m.name), el('span', m.desc, 'meta'));
+    top.append(label, el('span', `${Math.min(m.value, m.goal)}/${m.goal}`, 'milestone-count'));
+    const bar = el('div', undefined, 'bar small-bar');
+    const fill = el('span');
+    fill.style.width = Math.min(100, m.value / m.goal * 100) + '%';
+    bar.append(fill);
+    row.append(top, bar);
+    return row;
+  }));
+
+  const board = [...sampleMembers, { name: 'You', taught, you: true }]
+    .sort((a, b) => b.taught - a.taught || (a.you ? -1 : b.you ? 1 : 0));
+  $('leaderboard').replaceChildren(...board.map((m, i) => {
+    const li = el('li', undefined, m.you ? 'me' : '');
+    li.append(el('span', String(i + 1), 'rank'), avatar(m.name), el('span', m.you ? 'You' : m.name, 'lb-name'), el('span', `${m.taught} taught`, 'lb-score'));
+    return li;
+  }));
+
+  const mine = examples.filter(l => state.booked.includes(l.id));
+  $('myBookings').replaceChildren(...(mine.length ? mine.map(l => {
+    const row = el('div', undefined, 'booking-row');
+    const done = state.attended.includes(l.id);
+    const info = el('div');
+    info.append(el('strong', l.title), el('span', `${l.teacher.name} · ${l.duration} min · ${done ? 'Completed' : 'Booked'}`, 'meta'));
+    const acts = el('div', undefined, 'booking-actions');
+    if (done) {
+      acts.append(btn(state.ratings[l.id] ? `★ ${state.ratings[l.id]}/5` : 'Rate lesson', () => viewLesson(l), 'textbutton'));
+    } else {
+      acts.append(btn('Mark completed', () => markAttended(l), 'textbutton'), btn('Cancel (+1 token)', () => cancelBooking(l), 'textbutton'));
+    }
+    row.append(info, acts);
+    return row;
+  }) : [el('p', 'No lessons booked yet. Earn a token, then pick a lesson from the marketplace.', 'empty-note')]));
+
+  $('activity').replaceChildren(...state.history.map(h => {
+    const li = el('li', undefined, 'act-' + (h.kind || 'info'));
+    const sign = h.kind === 'gain' ? '+1' : h.kind === 'spend' ? '−1' : '✓';
+    li.append(el('span', sign, 'act-sign'), el('span', h.text), el('span', timeAgo(h.at), 'meta'));
+    return li;
+  }));
 }
 
 function render() {
   $('balance').textContent = state.tokens;
   $('tokenLabel').textContent = state.tokens === 1 ? 'token' : 'tokens';
+  renderDashboard();
 
   $('filters').replaceChildren(...categories.map(c => {
     const b = btn(c, () => { category = c; render(); }, 'filter');
@@ -367,6 +493,7 @@ function render() {
         if (!o.completed) {
           o.completed = true;
           state.tokens++;
+          logActivity(`Taught "${o.skill}"`, 'gain');
           save();
           notify('You earned 1 demo token. Explore lessons to spend it.');
         }
@@ -414,16 +541,8 @@ if (pilotResponse) {
 }
 updatePilot();
 $('wallet').addEventListener('click', () => {
-  const booked = examples.filter(l => state.booked.includes(l.id));
-  const actions = [];
-  for (const lesson of booked) actions.push(btn('Cancel ' + lesson.title + ' (+1 token)', () => {
-    if (state.booked.includes(lesson.id)) {
-      state.booked = state.booked.filter(id => id !== lesson.id);
-      state.tokens++; save(); close(); notify('Demo booking cancelled. Token returned.');
-    }
-  }, 'button secondary'));
-  actions.push(btn('Explore lessons', () => { close(); location.hash = 'market'; }));
-  modal('Your demo wallet', 'Available tokens: ' + state.tokens + '. Completed teaching sessions: ' + state.offers.filter(o => o.completed).length + '. Demo bookings: ' + booked.length + '. ' + (booked.length ? 'Your bookings: ' + booked.map(l => l.title).join('; ') + '. ' : '') + 'Stored on this browser only.', actions);
+  location.hash = 'tokens';
+  $('tokens').focus({ preventScroll: true });
 });
 $('reset').addEventListener('click', () => modal(
   'Reset this demo?',

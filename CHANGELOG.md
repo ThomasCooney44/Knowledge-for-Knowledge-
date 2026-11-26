@@ -2,6 +2,16 @@
 
 All changes on the `kfk-coin-token-icon` branch, newest first. Nothing here is live until the branch is merged into `main`.
 
+## 26 Nov 2026 — Token dashboard
+- New **Your token dashboard** section (after "How tokens work"), linked as **My tokens** in the navigation. The wallet button in the header now jumps to it instead of opening a pop-up.
+- Shows the **current balance**, **lessons taught**, **lessons completed**, **tokens earned** and **tokens spent**.
+- **Progress to your next lesson** bar: 0% (nothing listed), 50% (a teaching offer is listed but not yet completed), 100% (you have a token to spend), with a matching button.
+- **Milestones** with progress bars: First token (teach 1), Community teacher (teach 3), Knowledge swapper (teach or complete 5).
+- **Community leaderboard** ranked by lessons taught, with "You" highlighted and updating live. Other members are labelled as sample, illustrative data.
+- **Your lessons & activity**: booked lessons with **Mark completed** and **Cancel (+1 token)**, plus a feed of recent token activity.
+- Booked lessons can now be marked as completed. Ratings unlock after completion (previously after booking).
+- All dashboard data is stored on the visitor's browser only.
+
 ## 26 Nov 2026 — Realistic marketplace (`4d88c01`)
 - New skill categories: Languages, Technology, Business, Cooking, Sports, Music.
 - New filters for **difficulty** (Beginner / Intermediate / Advanced) and **lesson length** (15 / 30 / 60 minutes). Search now also matches teacher names.
