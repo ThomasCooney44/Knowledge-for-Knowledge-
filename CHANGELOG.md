@@ -2,6 +2,20 @@
 
 All changes on the `kfk-coin-token-icon` branch, newest first. Nothing here is live until the branch is merged into `main`.
 
+## 26 Nov 2026 — Trust & safety
+- New **Trust & safety** section (before the pilot form), linked as **Trust & safety** in the navigation, with four feature cards: Verified profiles, Ratings & reviews, Report a problem and the Token-back promise.
+- **Community guidelines** (six rules: be respectful, describe lessons honestly, meet safely, keep it token-only, show up or cancel early, speak up), also linked from the footer.
+- **What makes a good lesson?** guidance (one clear outcome, the right length, start where they are, hands-on practice, something to take away), linked from the lesson builder's example box.
+- **Your profile** card with a simulated **email verification** (no email is asked for or stored), plus lessons taught, lessons completed and reviews written.
+- **Verified teachers**: sample teacher profiles in "View lesson" show a "✓ Verified email" badge.
+- **Publishing requires verification**: if you haven't verified, Publish asks you to verify first. Verification status is also in the preview checklist.
+- **Written reviews**: after completing and rating a lesson, learners can add a short review (stored locally, editable).
+- **Report a problem** link in every lesson, with reasons: didn't match its description, inappropriate behaviour, felt unsafe, teacher didn't show up, something else. There's also a general "Report a concern about another member" in the profile card.
+- **Token-back promise**: reporting that a booked lesson didn't match its description returns the token (once per lesson). The dashboard shows it as "Reported · token returned", and it no longer counts as spent.
+- "I felt unsafe" reports show the emergency numbers (112 / 999).
+- New FAQ: "How do you keep members safe?"
+- All verification, reviews and reports are simulated and stored on the visitor's device only; nothing is sent.
+
 ## 26 Nov 2026 — Guided teaching experience
 - Replaced the single "teach a skill" form with a **three-step lesson builder** and a progress indicator:
   1. **Choose your skill**: "What are you comfortable teaching?", with one-click skill ideas (Excel shortcuts, Conversational Spanish, Beginner guitar, Budget meal prep, Interview prep, Python basics), plus category and who it's for.

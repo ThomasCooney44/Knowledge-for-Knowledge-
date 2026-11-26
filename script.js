@@ -106,7 +106,7 @@ const key = 'kfk-demo-v2';
 const pilotKey = 'kfk-pilot-response-v1';
 let pilotResponse = null;
 try { pilotResponse = JSON.parse(localStorage.getItem(pilotKey)); } catch {}
-const fresh = () => ({ tokens: 0, offers: [], booked: [], attended: [], history: [], interest: 0, ratings: {} });
+const fresh = () => ({ tokens: 0, offers: [], booked: [], attended: [], history: [], interest: 0, ratings: {}, reviews: {}, reports: [], refunded: [], verified: false });
 let state = fresh();
 
 try {
@@ -116,6 +116,10 @@ try {
 if (!state.ratings || typeof state.ratings !== 'object') state.ratings = {};
 if (!Array.isArray(state.attended)) state.attended = [];
 if (!Array.isArray(state.history)) state.history = [];
+if (!state.reviews || typeof state.reviews !== 'object') state.reviews = {};
+if (!Array.isArray(state.reports)) state.reports = [];
+if (!Array.isArray(state.refunded)) state.refunded = [];
+state.verified = state.verified === true;
 
 let category = 'All';
 let timer;
@@ -335,7 +339,27 @@ function ratingBlock(l) {
     s.disabled = !booked;
     stars.append(s);
   }
-  wrap.append(stars, el('p', booked
+  wrap.append(stars);
+  if (booked && current) {
+    const saved = state.reviews[l.id];
+    if (saved) {
+      const q = el('blockquote', saved, 'my-review');
+      wrap.append(el('span', 'Your review (demo, stored on this device):', 'meta'), q,
+        btn('Edit review', () => { delete state.reviews[l.id]; save(); viewLesson(l); }, 'textbutton'));
+    } else {
+      const box = el('label', 'Add a short written review (optional)');
+      const ta = el('textarea');
+      ta.maxLength = 200; ta.rows = 3;
+      ta.placeholder = 'What did you learn? Did the lesson match its description?';
+      box.append(ta);
+      wrap.append(box, btn('Save review', () => {
+        const t = ta.value.trim();
+        if (t.length < 5) { notify('Write a few words first.'); return; }
+        state.reviews[l.id] = t; logActivity(`Reviewed "${l.title}"`, 'info'); save(); viewLesson(l); notify('Thanks! Your review has been saved.');
+      }, 'button secondary'));
+    }
+  }
+  wrap.append(el('p', booked
     ? (current ? `Your demo rating: ${current}/5. Stored on this device only.` : 'How was it? Tap a star to rate your demo lesson.')
     : 'No ratings yet. In the pilot, learners will rate each lesson after it finishes. Book and complete this demo lesson to try it.', 'small'));
   return wrap;
@@ -347,7 +371,9 @@ function viewLesson(l) {
   body.push(makeArtwork(l));
   const profile = el('div', undefined, 'teacher-profile');
   const who = el('div');
-  who.append(el('strong', l.teacher.name), el('span', `Sample teacher · ${l.category}`, 'meta'));
+  const nameRow = el('div', undefined, 'name-row');
+  nameRow.append(el('strong', l.teacher.name), el('span', '✓ Verified email', 'verify-pill verified'));
+  who.append(nameRow, el('span', `Sample teacher · ${l.category}`, 'meta'));
   const head = el('div', undefined, 'teacher-head');
   head.append(avatar(l.teacher.name), who);
   profile.append(head, el('p', l.teacher.bio));
@@ -360,7 +386,8 @@ function viewLesson(l) {
   const slots = el('div', undefined, 'slots');
   for (const t of l.availability) slots.append(pill(t, 'slot'));
   avail.append(slots);
-  body.push(avail, ratingBlock(l));
+  const rep = btn('⚑ Report a problem with this lesson', () => openReport(l), 'textbutton report-link');
+  body.push(avail, ratingBlock(l), rep);
   const attended = state.attended.includes(l.id);
   const actions = [];
   if (booked && !attended) actions.push(btn('Mark lesson as completed', () => { markAttended(l); viewLesson(l); }));
@@ -382,7 +409,7 @@ function markAttended(l) {
 }
 
 function cancelBooking(l) {
-  if (!state.booked.includes(l.id) || state.attended.includes(l.id)) return;
+  if (!state.booked.includes(l.id) || state.attended.includes(l.id) || state.refunded.includes(l.id)) return;
   state.booked = state.booked.filter(id => id !== l.id);
   state.tokens++;
   logActivity(`Cancelled "${l.title}" · token returned`, 'gain');
@@ -407,7 +434,7 @@ function timeAgo(t) {
 function renderDashboard() {
   const taught = state.offers.filter(o => o.completed).length;
   const completed = state.attended.length;
-  const spent = state.booked.length;
+  const spent = state.booked.filter(id => !state.refunded.includes(id)).length;
   const pendingOffer = state.offers.find(o => !o.completed);
   $('dashBalance').textContent = state.tokens;
   $('dashBalanceLabel').textContent = state.tokens === 1 ? 'token' : 'tokens';
@@ -463,10 +490,13 @@ function renderDashboard() {
   $('myBookings').replaceChildren(...(mine.length ? mine.map(l => {
     const row = el('div', undefined, 'booking-row');
     const done = state.attended.includes(l.id);
+    const refunded = state.refunded.includes(l.id);
     const info = el('div');
-    info.append(el('strong', l.title), el('span', `${l.teacher.name} · ${l.duration} min · ${done ? 'Completed' : 'Booked'}`, 'meta'));
+    info.append(el('strong', l.title), el('span', `${l.teacher.name} · ${l.duration} min · ${refunded ? 'Reported · token returned' : done ? 'Completed' : 'Booked'}`, 'meta'));
     const acts = el('div', undefined, 'booking-actions');
-    if (done) {
+    if (refunded) {
+      acts.append(btn('View lesson', () => viewLesson(l), 'textbutton'));
+    } else if (done) {
       acts.append(btn(state.ratings[l.id] ? `★ ${state.ratings[l.id]}/5` : 'Rate lesson', () => viewLesson(l), 'textbutton'));
     } else {
       acts.append(btn('Mark completed', () => markAttended(l), 'textbutton'), btn('Cancel (+1 token)', () => cancelBooking(l), 'textbutton'));
@@ -483,10 +513,84 @@ function renderDashboard() {
   }));
 }
 
+const reportReasons = [
+  ['mismatch', "The lesson didn't match its description"],
+  ['behaviour', 'Inappropriate or disrespectful behaviour'],
+  ['safety', 'I felt unsafe'],
+  ['noshow', "The teacher didn't show up"],
+  ['other', 'Something else']
+];
+
+function openReport(l) {
+  const form = el('form', undefined, 'report-form');
+  const fs = el('fieldset');
+  fs.append(el('legend', 'What happened?'));
+  const reasons = l ? reportReasons : reportReasons.filter(r => r[0] !== 'mismatch' && r[0] !== 'noshow');
+  reasons.forEach(([v, text], i) => {
+    const lab = el('label', undefined, 'radio');
+    const r = el('input'); r.type = 'radio'; r.name = 'reason'; r.value = v; if (i === 0) r.required = true;
+    lab.append(r, el('span', text));
+    fs.append(lab);
+  });
+  const det = el('label', 'Tell us more (optional)');
+  const ta = el('textarea'); ta.maxLength = 300; ta.rows = 3; ta.name = 'details';
+  ta.placeholder = 'Describe what happened. Please do not include names, phone numbers or email addresses.';
+  det.append(ta);
+  form.append(fs, det);
+  const note = el('p', l && state.booked.includes(l.id) && !state.refunded.includes(l.id)
+    ? "Token-back promise: if you report that this lesson didn't match its description, your token is returned."
+    : 'In the pilot, the project team reviews every report and can suspend members who break the community guidelines.', 'small');
+  form.append(note);
+  const submit = btn('Submit report', () => {
+    const chosen = form.querySelector('input[name=reason]:checked');
+    if (!chosen) { notify('Choose what happened first.'); return; }
+    submitReport(l, chosen.value, ta.value.trim());
+  });
+  modal(l ? 'Report a problem: ' + l.title : 'Report a concern', '', [submit, btn('Cancel', close, 'button secondary')], [form]);
+}
+
+function submitReport(l, reason, details) {
+  state.reports.push({ lesson: l ? l.id : null, reason, details, at: Date.now() });
+  let refunded = false;
+  if (l && reason === 'mismatch' && state.booked.includes(l.id) && !state.refunded.includes(l.id)) {
+    state.refunded.push(l.id);
+    state.tokens++;
+    refunded = true;
+    logActivity(`Token returned: "${l.title}" didn't match its description`, 'gain');
+  } else {
+    logActivity('Report submitted' + (l ? ` about "${l.title}"` : ''), 'info');
+  }
+  save();
+  modal('Thank you for reporting this',
+    (reason === 'safety' ? 'If you are in immediate danger, contact emergency services on 112 or 999. ' : '') +
+    (refunded ? 'Your token has been returned to your wallet. ' : '') +
+    'In the pilot, the project team would review your report within 48 hours, contact both members if needed, and remove listings or suspend members who break the community guidelines. This demo report is stored on your device only and has not been sent.',
+    [btn('Close', close)]);
+}
+
+function verifyEmail(then) {
+  state.verified = true;
+  logActivity('Email verified (demo)', 'info');
+  save();
+  notify('Email verified (simulated). Your profile now shows a verified badge.');
+  if (then) then();
+}
+
+function renderTrust() {
+  const v = state.verified;
+  $('verifyStatus').textContent = v ? '✓ Verified email (demo)' : 'Email not verified';
+  $('verifyStatus').className = 'verify-pill ' + (v ? 'verified' : 'unverified');
+  $('verifyBtn').hidden = v;
+  $('profTaught').textContent = state.offers.filter(o => o.completed).length;
+  $('profCompleted').textContent = state.attended.length;
+  $('profReviews').textContent = Object.keys(state.reviews).length;
+}
+
 function render() {
   $('balance').textContent = state.tokens;
   $('tokenLabel').textContent = state.tokens === 1 ? 'token' : 'tokens';
   renderDashboard();
+  renderTrust();
 
   $('filters').replaceChildren(...categories.map(c => {
     const b = btn(c, () => { category = c; render(); }, 'filter');
@@ -568,7 +672,8 @@ function renderPreview() {
   const checks = [
     [!!d.title, d.title ? 'Clear lesson title' : 'No title yet, so your skill name will be used. A specific title attracts more learners.'],
     [d.description.length >= 80, d.description.length >= 80 ? 'Detailed description' : 'Short description. Consider saying who it is for and what they will leave with.'],
-    [!!d.availability, d.availability ? 'Availability shown' : 'No availability added. Learners like to know when you are free.']
+    [!!d.availability, d.availability ? 'Availability shown' : 'No availability added. Learners like to know when you are free.'],
+    [state.verified, state.verified ? 'Verified email' : "Email not verified yet. You'll be asked to verify when you publish."]
   ];
   $('offerChecklist').replaceChildren(...checks.map(([ok, text]) => el('li', (ok ? '✓ ' : '• ') + text, ok ? 'ok' : 'tip')));
 }
@@ -610,6 +715,16 @@ form.addEventListener('submit', e => {
   if (wizStep < 3) { if (validStep(wizStep)) showStep(wizStep + 1); return; }
   if (!validStep(1)) { showStep(1); return; }
   if (!validStep(2)) { showStep(2); return; }
+  if (!state.verified) {
+    modal('Verify your email to publish',
+      'To keep the community safe, every teacher in the pilot verifies a university email address before their listing goes live. This demo simulates that step: no email is asked for or stored.',
+      [btn('Simulate verification & publish', () => { close(); verifyEmail(publishOffer); }), btn('Not now', close, 'button secondary')]);
+    return;
+  }
+  publishOffer();
+});
+
+function publishOffer() {
   const d = draftOffer();
   state.offers.push({ skill: d.skill, title: d.title, category: d.category, level: d.level, mode: d.mode, duration: d.duration, availability: d.availability, description: d.description, completed: false, created: Date.now() });
   logActivity(`Published "${d.title || d.skill}"`, 'info');
@@ -620,8 +735,10 @@ form.addEventListener('submit', e => {
   save();
   notify('Published! Your listing now appears in the marketplace (visible only to you).');
   $('myLessons').scrollIntoView({ behavior: 'smooth', block: 'center' });
-});
+}
 
+$('verifyBtn').addEventListener('click', () => verifyEmail());
+$('reportGeneral').addEventListener('click', () => openReport(null));
 $('search').addEventListener('input', render);
 $('levelFilter').addEventListener('change', render);
 $('durationFilter').addEventListener('change', render);

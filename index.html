@@ -22,6 +22,7 @@
         <a href="#how">How it works</a>
         <a href="#teach">Teach a skill</a>
         <a href="#tokens">My tokens</a>
+        <a href="#trust">Trust &amp; safety</a>
         <a href="#pilot">Join the pilot</a>
       </nav>
       <button id="wallet" class="wallet" type="button" aria-label="Open your token dashboard"><img class="token-icon" src="token.png" alt="" aria-hidden="true"> <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
@@ -279,6 +280,7 @@
               <li><strong>Say who it's for:</strong> complete beginners, improvers and so on.</li>
               <li><strong>Name the outcome:</strong> what will they be able to do afterwards?</li>
             </ul>
+            <p class="small example-more">More tips: <a href="#good-lesson">What makes a good lesson?</a> · <a href="#guidelines">Community guidelines</a></p>
             <button type="button" class="textbutton" id="useExample">Use this example as a starting point</button>
           </details>
           <div class="form-row">
@@ -311,6 +313,62 @@
           <div class="wizard-nav"><button type="button" class="button secondary" data-back>← Edit lesson</button><button type="submit" class="button">Publish demo offer</button></div>
         </fieldset>
       </form>
+    </section>
+
+    <section id="trust" class="section trust-section">
+      <div class="section-heading">
+        <p class="eyebrow">TRUST &amp; SAFETY</p>
+        <h2>Built on trust between people who are just getting to know each other.</h2>
+        <p class="section-lead">Lessons happen between members of the community, so trust is part of the design from day one. This is how the pilot would keep learners and teachers safe. In this demo, verification, reviews and reports are simulated and stay on your device.</p>
+      </div>
+
+      <div class="trust-features">
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">✓</span><h3>Verified profiles</h3><p>Every member verifies a university email address before they can teach or book.</p></article>
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">★</span><h3>Ratings &amp; reviews</h3><p>Only learners who completed a lesson can rate it, so feedback comes from real experience.</p></article>
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">⚑</span><h3>Report a problem</h3><p>Report inappropriate behaviour or a safety concern from any lesson, at any time.</p></article>
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">↺</span><h3>Token-back promise</h3><p>If a lesson doesn't match its description, report it and your token is returned.</p></article>
+      </div>
+
+      <div class="trust-grid">
+        <article class="dash-card guidelines" id="guidelines">
+          <h3>Community guidelines</h3>
+          <ol class="guide-list">
+            <li><strong>Be respectful.</strong> Treat every learner and teacher with patience and kindness. No harassment, discrimination or pressure of any kind.</li>
+            <li><strong>Describe lessons honestly.</strong> Only offer skills you are genuinely comfortable teaching, and make sure the listing matches what you deliver.</li>
+            <li><strong>Meet safely.</strong> Start online or meet in a public place such as a library or campus café. Never share your home address before you feel comfortable.</li>
+            <li><strong>Keep it token-only.</strong> No cash, gifts or side payments. Every lesson costs exactly one token.</li>
+            <li><strong>Show up or cancel early.</strong> Cancel at least 24 hours ahead so the other person isn't left waiting.</li>
+            <li><strong>Speak up.</strong> If something feels wrong, end the session and report it. Reports are reviewed by the team.</li>
+          </ol>
+        </article>
+
+        <article class="dash-card good-lesson" id="good-lesson">
+          <h3>What makes a good lesson?</h3>
+          <ul class="good-list">
+            <li><span>🎯</span><div><strong>One clear outcome</strong><p>"By the end, you'll be able to…" Keep it to one achievable goal.</p></div></li>
+            <li><span>⏱</span><div><strong>The right length</strong><p>Fit the topic to 15, 30 or 60 minutes. Less is more for a first lesson.</p></div></li>
+            <li><span>🧭</span><div><strong>Start where they are</strong><p>Ask what they already know in the first two minutes and adjust.</p></div></li>
+            <li><span>🛠</span><div><strong>Hands-on practice</strong><p>Let the learner try it themselves rather than just watching you.</p></div></li>
+            <li><span>📝</span><div><strong>Something to take away</strong><p>A cheat sheet, recipe or next step helps the lesson stick.</p></div></li>
+          </ul>
+        </article>
+
+        <article class="dash-card profile-card">
+          <h3>Your profile</h3>
+          <div class="profile-head">
+            <span class="avatar big-avatar" aria-hidden="true">Y</span>
+            <div><strong>You</strong><span id="verifyStatus" class="verify-pill unverified">Email not verified</span></div>
+          </div>
+          <dl class="profile-stats">
+            <div><dt>Lessons taught</dt><dd id="profTaught">0</dd></div>
+            <div><dt>Lessons completed</dt><dd id="profCompleted">0</dd></div>
+            <div><dt>Reviews written</dt><dd id="profReviews">0</dd></div>
+          </dl>
+          <button type="button" class="button" id="verifyBtn">Simulate email verification</button>
+          <p class="small">In the pilot you would confirm a university email address such as name@university.ie. This demo does not ask for or store any email.</p>
+          <button type="button" class="textbutton" id="reportGeneral">Report a concern about another member</button>
+        </article>
+      </div>
     </section>
 
     <section id="pilot" class="section pilot-section">
@@ -352,13 +410,14 @@
         <details><summary>Do I need to be an expert to teach?</summary><p>No. In the proposed marketplace, you would share a skill you are comfortable explaining to a beginner. Describe your experience honestly.</p></details>
         <details><summary>How much does a lesson cost?</summary><p>The demo uses one token per lesson, regardless of the displayed duration. Tokens are not money and have no cash value. We are testing whether this exchange feels fair.</p></details>
         <details><summary>Can I book a real lesson today?</summary><p>Not yet. The current website is a university pretotype with sample listings and simulated tokens. Pilot interest is separate from a demo booking.</p></details>
+        <details><summary>How do you keep members safe?</summary><p>In the proposed pilot, every member verifies a university email, only learners who completed a lesson can review it, and anyone can report inappropriate behaviour or a lesson that doesn't match its description. See the <a href="#trust">Trust &amp; safety</a> section and community guidelines.</p></details>
         <details><summary>Where are my tokens and responses stored?</summary><p>Demo activity and any locally saved pilot response are stored on this browser only. No account, central database or payment system is connected.</p></details>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <a href="#faq" class="footer-link">FAQs</a>
+    <a href="#faq" class="footer-link">FAQs</a> <a href="#guidelines" class="footer-link">Community guidelines</a>
     <strong>Knowledge for Knowledge</strong>
     <p>University project pretotype. No real bookings, payments or token transfers take place.</p>
     <button id="reset" class="textbutton" type="button">Reset demo</button>
