@@ -95,6 +95,15 @@ function el(tag, text, cls) {
   return node;
 }
 
+function tokenPrice() {
+  const price = el('span', undefined, 'price');
+  const icon = el('img', undefined, 'token-icon');
+  icon.src = 'token.png';
+  icon.alt = '';
+  price.append(icon, ' 1 token');
+  return price;
+}
+
 function btn(text, fn, cls = 'button') {
   const b = el('button', text, cls);
   b.type = 'button';
@@ -229,7 +238,7 @@ function render() {
       el('h3', l.title),
       el('p', l.desc),
       el('span', l.format, 'meta'),
-      el('span', '◈ 1 token', 'price'),
+      tokenPrice(),
       b, interest
     );
     card.append(makeArtwork(l), body);
