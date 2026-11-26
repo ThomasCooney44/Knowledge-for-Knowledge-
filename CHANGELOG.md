@@ -2,6 +2,16 @@
 
 All changes on the `kfk-coin-token-icon` branch, newest first. Nothing here is live until the branch is merged into `main`.
 
+## 26 Nov 2026 — Guided teaching experience
+- Replaced the single "teach a skill" form with a **three-step lesson builder** and a progress indicator:
+  1. **Choose your skill**: "What are you comfortable teaching?", with one-click skill ideas (Excel shortcuts, Conversational Spanish, Beginner guitar, Budget meal prep, Interview prep, Python basics), plus category and who it's for.
+  2. **Create your lesson**: lesson title, what someone will learn (with a 240-character counter), format, length (15/30/60 min) and optional availability.
+  3. **Publish your offer**: a live preview of the marketplace card, a quality checklist (title, detailed description, availability) and **Publish demo offer**.
+- Added an **example of a good lesson description** with three writing tips and a "Use this example as a starting point" button.
+- Friendly validation messages if the skill is missing or the description is too short (under 30 characters).
+- Published offers now appear at the top of the **marketplace** with a "Your listing" badge (visible only on this device), and under **Your published offers** with "Simulate teaching this lesson (+1 token)".
+- Publishing and teaching both show up in the token dashboard's activity feed.
+
 ## 26 Nov 2026 — Token dashboard
 - New **Your token dashboard** section (after "How tokens work"), linked as **My tokens** in the navigation. The wallet button in the header now jumps to it instead of opening a pop-up.
 - Shows the **current balance**, **lessons taught**, **lessons completed**, **tokens earned** and **tokens spent**.

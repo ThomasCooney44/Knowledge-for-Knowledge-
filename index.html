@@ -213,52 +213,103 @@
         <p class="eyebrow">EVERYONE HAS SOMETHING TO SHARE</p>
         <h2>Turn your knowledge into opportunity.</h2>
         <p>Whether you can help someone use Excel, practise Spanish, take better photos or cook affordable meals, your skills can unlock something valuable for someone else.</p>
-        <p class="small">Try the teaching journey below. Your demo offer stays on this device; it is not advertised to real learners.</p>
-        <div class="journey-note"><strong>Your first token</strong><p>1. List a skill you could teach.<br>2. Simulate completing your session.<br>3. Use your token to try a demo booking.</p></div>
+        <p class="small">Your demo listing is visible only to you on this device. It is not advertised to real learners.</p>
+        <div class="journey-note"><strong>How you earn your first token</strong><p>1. Build and publish your lesson in three steps.<br>2. Simulate teaching it to earn 1 token.<br>3. Spend your token on a lesson you want to learn.</p></div>
+        <div id="myLessons" class="my-offers" aria-live="polite"></div>
       </div>
-      <form id="teachForm" class="teach-form">
-        <label>What can you teach?
-          <input name="skill" required maxlength="80" placeholder="e.g. Beginner Excel shortcuts">
-        </label>
-        <div class="form-row">
-          <label>Category
-            <select name="category">
-              <option>Languages</option>
-              <option>Technology</option>
-              <option>Business</option>
-              <option>Cooking</option>
-              <option>Sports</option>
-              <option>Music</option>
-            </select>
+
+      <form id="teachForm" class="teach-form wizard" novalidate>
+        <ol class="wizard-steps" aria-label="Lesson builder progress">
+          <li data-step="1" class="active"><span>1</span>Choose your skill</li>
+          <li data-step="2"><span>2</span>Create your lesson</li>
+          <li data-step="3"><span>3</span>Publish your offer</li>
+        </ol>
+
+        <fieldset class="wizard-panel" data-panel="1">
+          <legend>What are you comfortable teaching?</legend>
+          <p class="panel-hint">Pick something you could explain to a beginner without notes. It doesn't need to be a formal qualification.</p>
+          <div class="skill-ideas" aria-label="Popular skill ideas">
+            <button type="button" class="idea" data-skill="Excel shortcuts" data-category="Business">📊 Excel shortcuts</button>
+            <button type="button" class="idea" data-skill="Conversational Spanish" data-category="Languages">💬 Conversational Spanish</button>
+            <button type="button" class="idea" data-skill="Beginner guitar chords" data-category="Music">🎵 Beginner guitar</button>
+            <button type="button" class="idea" data-skill="Budget meal prep" data-category="Cooking">🍳 Budget meal prep</button>
+            <button type="button" class="idea" data-skill="Interview preparation" data-category="Business">💼 Interview prep</button>
+            <button type="button" class="idea" data-skill="Getting started with Python" data-category="Technology">💻 Python basics</button>
+          </div>
+          <label>Skill you can teach
+            <input name="skill" maxlength="80" placeholder="e.g. Excel shortcuts" autocomplete="off">
           </label>
-          <label>Difficulty
-            <select name="level">
-              <option>Beginner</option>
-              <option>Intermediate</option>
-              <option>Advanced</option>
-            </select>
+          <div class="form-row">
+            <label>Category
+              <select name="category">
+                <option>Languages</option>
+                <option>Technology</option>
+                <option>Business</option>
+                <option>Cooking</option>
+                <option>Sports</option>
+                <option>Music</option>
+              </select>
+            </label>
+            <label>Who is it for?
+              <select name="level">
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+              </select>
+            </label>
+          </div>
+          <p class="field-error" data-error="1" role="alert"></p>
+          <div class="wizard-nav"><span></span><button type="button" class="button" data-next>Next: create your lesson →</button></div>
+        </fieldset>
+
+        <fieldset class="wizard-panel" data-panel="2" hidden>
+          <legend>Explain what someone will learn</legend>
+          <label>Lesson title
+            <input name="title" maxlength="70" placeholder="e.g. 10 Excel shortcuts that save hours">
           </label>
-        </div>
-        <div class="form-row">
-          <label>Format
-            <select name="mode">
-              <option>Online</option>
-              <option>In person</option>
-            </select>
+          <label>What will someone learn?
+            <textarea name="description" maxlength="240" placeholder="What will you cover, who is it for, and what will they leave with?"></textarea>
+            <span class="char-count"><span id="descCount">0</span>/240</span>
           </label>
-          <label>Lesson length
-            <select name="duration">
-              <option value="15">15 minutes</option>
-              <option value="30" selected>30 minutes</option>
-              <option value="60">60 minutes</option>
-            </select>
+          <details class="example-box" open>
+            <summary>✨ Example of a good lesson description</summary>
+            <blockquote id="exampleText">In 30 minutes, I'll show complete beginners the 10 Excel shortcuts I use every day at work. We'll practise on a sample spreadsheet together, and you'll leave with a one-page cheat sheet. Just bring a laptop with Excel installed.</blockquote>
+            <ul class="example-tips">
+              <li><strong>Be specific:</strong> say exactly what you'll cover.</li>
+              <li><strong>Say who it's for:</strong> complete beginners, improvers and so on.</li>
+              <li><strong>Name the outcome:</strong> what will they be able to do afterwards?</li>
+            </ul>
+            <button type="button" class="textbutton" id="useExample">Use this example as a starting point</button>
+          </details>
+          <div class="form-row">
+            <label>Format
+              <select name="mode">
+                <option>Online</option>
+                <option>In person</option>
+              </select>
+            </label>
+            <label>How long does it take?
+              <select name="duration">
+                <option value="15">15 minutes</option>
+                <option value="30" selected>30 minutes</option>
+                <option value="60">60 minutes</option>
+              </select>
+            </label>
+          </div>
+          <label>When are you usually available? (Optional)
+            <input name="availability" maxlength="40" placeholder="e.g. Tuesday evenings">
           </label>
-        </div>
-        <label>What will someone learn?
-          <textarea name="description" required maxlength="240" placeholder="Describe what your lesson covers"></textarea>
-        </label>
-        <button class="button" type="submit">Create demo teaching offer</button>
-        <div id="myLessons" aria-live="polite"></div>
+          <p class="field-error" data-error="2" role="alert"></p>
+          <div class="wizard-nav"><button type="button" class="button secondary" data-back>← Back</button><button type="button" class="button" data-next>Next: preview →</button></div>
+        </fieldset>
+
+        <fieldset class="wizard-panel" data-panel="3" hidden>
+          <legend>Preview your listing</legend>
+          <p class="panel-hint">This is how learners would see your lesson in the marketplace. Check it reads well before publishing.</p>
+          <div id="offerPreview" class="offer-preview"></div>
+          <ul class="checklist" id="offerChecklist"></ul>
+          <div class="wizard-nav"><button type="button" class="button secondary" data-back>← Edit lesson</button><button type="submit" class="button">Publish demo offer</button></div>
+        </fieldset>
       </form>
     </section>
 

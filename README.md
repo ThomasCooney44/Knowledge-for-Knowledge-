@@ -11,7 +11,7 @@ Settings → Pages → Deploy from a branch → main → / (root).
 
 ## Test the experience
 1. Browse the nine sample listings; filter by category, difficulty and lesson length; open "View lesson" to see the teacher profile and availability.
-2. Try booking with zero tokens. Create a demo teaching offer and simulate completing it.
+2. Try booking with zero tokens. Build a lesson in the three-step "Teach a skill" builder (skill → lesson → preview), publish it, check it appears in the marketplace, then simulate teaching it.
 3. Confirm a demo booking and open the token dashboard (wallet button or "My tokens"). Mark the lesson completed and rate it, or cancel the booking and check the token is returned.
 4. Try the separate "I want to learn this" action. Complete the anonymous pilot form, download its CSV, reload, and check persistence.
 5. Reset the demo. No real bookings, lessons, accounts or transfers are created.

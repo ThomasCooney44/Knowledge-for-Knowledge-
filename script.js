@@ -265,20 +265,46 @@ function pill(text, cls = 'pill') {
   return el('span', text, cls);
 }
 
-function lessonCard(l) {
+function offerTitle(o) {
+  return (o.title && o.title.trim()) || o.skill;
+}
+
+function offerToLesson(o, i) {
+  let duration = Number(o.duration);
+  if (!duration && o.format) duration = Number((o.format.match(/(\d+) min/) || [])[1]) || 30;
+  const mode = o.mode || (o.format && o.format.startsWith('In person') ? 'In person' : 'Online');
+  return {
+    id: 'own-' + i, own: true, offer: o,
+    title: offerTitle(o), category: o.category || 'Languages', level: o.level || 'Beginner',
+    duration: duration || 30, mode,
+    schedule: `${mode} lesson · your listing`,
+    availability: [o.availability && o.availability.trim() ? o.availability.trim() : 'Flexible times'],
+    teacher: { name: 'You', bio: '' },
+    desc: o.description
+  };
+}
+
+function lessonCard(l, preview = false) {
   const card = el('article', undefined, 'lesson');
   const art = makeArtwork(l);
   art.append(pill(l.level, 'level-badge level-' + l.level.toLowerCase()));
-  if (state.booked.includes(l.id)) art.append(pill('✓ Booked', 'booked-badge'));
+  if (l.own) art.append(pill(preview ? 'Preview' : 'Your listing', 'booked-badge own-badge'));
+  else if (state.booked.includes(l.id)) art.append(pill('✓ Booked', 'booked-badge'));
   const body = el('div', undefined, 'lesson-body');
   const teacher = el('div', undefined, 'teacher-row');
   teacher.append(avatar(l.teacher.name), el('span', `Taught by ${l.teacher.name} · ${l.level}`));
   const facts = el('div', undefined, 'lesson-facts');
   facts.append(pill(`⏱ ${l.duration}-minute session`), pill('📅 ' + l.availability[0] + (l.availability.length > 1 ? ' +' + (l.availability.length - 1) : '')));
   const foot = el('div', undefined, 'lesson-foot');
-  const view = btn('View lesson', () => viewLesson(l));
-  view.setAttribute('aria-label', 'View lesson: ' + l.title);
-  foot.append(tokenPrice(), view);
+  if (l.own) {
+    const manage = btn(preview ? 'View lesson' : (l.offer.completed ? 'Taught ✓' : 'Manage'), () => { location.hash = 'teach'; }, 'button secondary');
+    manage.disabled = preview || l.offer.completed;
+    foot.append(tokenPrice(), manage);
+  } else {
+    const view = btn('View lesson', () => viewLesson(l));
+    view.setAttribute('aria-label', 'View lesson: ' + l.title);
+    foot.append(tokenPrice(), view);
+  }
   const rating = state.ratings[l.id];
   body.append(
     el('span', l.schedule, 'meta schedule'),
@@ -394,7 +420,7 @@ function renderDashboard() {
   if (state.tokens > 0) {
     pct = 100; text = `You have ${state.tokens} ${state.tokens === 1 ? 'token' : 'tokens'}: enough for ${state.tokens === 1 ? 'your next lesson' : state.tokens + ' lessons'}.`; cta = 'Choose a lesson'; href = '#market';
   } else if (pendingOffer) {
-    pct = 50; text = `Your lesson "${pendingOffer.skill}" is listed. Complete it to earn your next token.`; cta = 'Go to my teaching offer'; href = '#teach';
+    pct = 50; text = `Your lesson "${offerTitle(pendingOffer)}" is published. Complete it to earn your next token.`; cta = 'Go to my teaching offer'; href = '#teach';
   } else {
     pct = 0; text = 'Teach one lesson to earn the token for your next lesson.'; cta = 'Become a teacher'; href = '#teach';
   }
@@ -471,7 +497,8 @@ function render() {
   const query = $('search').value.trim().toLowerCase();
   const level = $('levelFilter').value;
   const duration = $('durationFilter').value;
-  const visible = examples.filter(l =>
+  const pool = [...state.offers.map(offerToLesson), ...examples];
+  const visible = pool.filter(l =>
     (category === 'All' || l.category === category) &&
     (!level || l.level === level) &&
     (!duration || String(l.duration) === duration) &&
@@ -480,37 +507,119 @@ function render() {
 
   $('resultCount').textContent = visible.length + (visible.length === 1 ? ' lesson' : ' lessons') + ' found';
   $('clearFilters').hidden = category === 'All' && !query && !level && !duration;
-  $('lessons').replaceChildren(...visible.map(lessonCard));
+  $('lessons').replaceChildren(...visible.map(l => lessonCard(l)));
   if (!visible.length) $('lessons').append(el('p', 'No lessons match. Try another search or clear your filters.', 'empty-state'));
 
-  $('myLessons').replaceChildren(...state.offers.map(o => {
+  const offerRows = state.offers.map(o => {
     const a = el('div', undefined, 'own');
-    a.append(el('strong', o.skill), el('span', o.format ? `${o.category} · ${o.format}` : `${o.category} · ${o.level} · ${o.mode} · ${o.duration} min`, 'meta'), el('p', o.description));
+    const l = offerToLesson(o, 0);
+    a.append(el('strong', offerTitle(o)), el('span', `${l.category} · ${l.level} · ${l.mode} · ${l.duration} min`, 'meta'));
     if (o.completed) {
-      a.append(el('span', 'Completed · +1 demo token', 'price'));
+      a.append(el('span', 'Taught · +1 demo token earned', 'price'));
     } else {
-      a.append(btn('Simulate completed teaching', () => {
+      a.append(btn('Simulate teaching this lesson (+1 token)', () => {
         if (!o.completed) {
           o.completed = true;
           state.tokens++;
-          logActivity(`Taught "${o.skill}"`, 'gain');
+          logActivity(`Taught "${offerTitle(o)}"`, 'gain');
           save();
           notify('You earned 1 demo token. Explore lessons to spend it.');
         }
       }, 'button secondary'));
     }
     return a;
-  }));
+  });
+  $('myLessons').replaceChildren(...(offerRows.length ? [el('h3', 'Your published offers'), ...offerRows] : []));
 }
 
-$('teachForm').addEventListener('submit', e => {
+const form = $('teachForm');
+let wizStep = 1;
+
+function draftOffer() {
+  const d = Object.fromEntries(new FormData(form));
+  for (const k of Object.keys(d)) d[k] = String(d[k]).trim();
+  return d;
+}
+
+function setError(step, msg) {
+  const e = form.querySelector(`[data-error="${step}"]`);
+  if (e) e.textContent = msg || '';
+}
+
+function validStep(step) {
+  const d = draftOffer();
+  if (step === 1 && d.skill.length < 2) {
+    setError(1, 'Tell us the skill you could teach, or pick one of the ideas above.');
+    form.elements.skill.focus();
+    return false;
+  }
+  if (step === 2 && d.description.length < 30) {
+    setError(2, 'Add a bit more detail so learners know what to expect. Aim for at least 30 characters, and use the example if you need inspiration.');
+    form.elements.description.focus();
+    return false;
+  }
+  setError(step, '');
+  return true;
+}
+
+function renderPreview() {
+  const d = draftOffer();
+  $('offerPreview').replaceChildren(lessonCard(offerToLesson(d, 'preview'), true));
+  const checks = [
+    [!!d.title, d.title ? 'Clear lesson title' : 'No title yet, so your skill name will be used. A specific title attracts more learners.'],
+    [d.description.length >= 80, d.description.length >= 80 ? 'Detailed description' : 'Short description. Consider saying who it is for and what they will leave with.'],
+    [!!d.availability, d.availability ? 'Availability shown' : 'No availability added. Learners like to know when you are free.']
+  ];
+  $('offerChecklist').replaceChildren(...checks.map(([ok, text]) => el('li', (ok ? '✓ ' : '• ') + text, ok ? 'ok' : 'tip')));
+}
+
+function showStep(n) {
+  wizStep = n;
+  form.querySelectorAll('.wizard-panel').forEach(p => { p.hidden = Number(p.dataset.panel) !== n; });
+  form.querySelectorAll('.wizard-steps li').forEach(li => {
+    const step = Number(li.dataset.step);
+    li.classList.toggle('active', step === n);
+    li.classList.toggle('done', step < n);
+    if (step === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+  });
+  if (n === 3) renderPreview();
+  const first = form.querySelector(`[data-panel="${n}"] input, [data-panel="${n}"] textarea, [data-panel="${n}"] button`);
+  if (first && n !== 1) first.focus({ preventScroll: true });
+}
+
+form.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => { if (validStep(wizStep)) showStep(wizStep + 1); }));
+form.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => showStep(wizStep - 1)));
+form.querySelectorAll('.idea').forEach(b => b.addEventListener('click', () => {
+  form.elements.skill.value = b.dataset.skill;
+  form.elements.category.value = b.dataset.category;
+  form.querySelectorAll('.idea').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  setError(1, '');
+}));
+form.querySelectorAll('.idea').forEach(b => b.setAttribute('aria-pressed', 'false'));
+form.elements.description.addEventListener('input', () => { $('descCount').textContent = form.elements.description.value.length; });
+form.addEventListener('input', () => { setError(wizStep, ''); });
+$('useExample').addEventListener('click', () => {
+  form.elements.description.value = $('exampleText').textContent.trim();
+  form.elements.description.dispatchEvent(new Event('input'));
+  form.elements.description.focus();
+  notify('Example added. Now edit it so it describes your lesson.');
+});
+
+form.addEventListener('submit', e => {
   e.preventDefault();
-  const data = Object.fromEntries(new FormData(e.currentTarget));
-  if (!data.skill.trim() || !data.description.trim()) return;
-  state.offers.push({ ...data, skill:data.skill.trim(), description:data.description.trim(), completed: false });
-  e.currentTarget.reset();
+  if (wizStep < 3) { if (validStep(wizStep)) showStep(wizStep + 1); return; }
+  if (!validStep(1)) { showStep(1); return; }
+  if (!validStep(2)) { showStep(2); return; }
+  const d = draftOffer();
+  state.offers.push({ skill: d.skill, title: d.title, category: d.category, level: d.level, mode: d.mode, duration: d.duration, availability: d.availability, description: d.description, completed: false, created: Date.now() });
+  logActivity(`Published "${d.title || d.skill}"`, 'info');
+  form.reset();
+  $('descCount').textContent = '0';
+  form.querySelectorAll('.idea').forEach(x => x.setAttribute('aria-pressed', 'false'));
+  showStep(1);
   save();
-  notify('Your demo teaching offer has been listed locally.');
+  notify('Published! Your listing now appears in the marketplace (visible only to you).');
+  $('myLessons').scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 $('search').addEventListener('input', render);
