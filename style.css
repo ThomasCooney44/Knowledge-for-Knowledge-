@@ -338,3 +338,50 @@ h1,h2{text-wrap:balance}
   .compare-card{padding:22px}
 }
 @media(prefers-reduced-motion:reduce){.float-chip,.hero-float-coin,.flow-coin{animation:none!important}.flow-coin{left:calc(50% - 20px)}}
+
+/* Realistic marketplace: filters, richer cards, lesson detail */
+.market-controls{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:14px;margin-bottom:18px;max-width:860px}
+.market-controls .search{max-width:none;margin:0}
+.sectionhead .section-lead{font-size:16px;margin-top:-6px}
+.lesson-image{position:relative}
+.lesson-fallback{font-size:64px;background:linear-gradient(135deg,#eaf1fe,#c7dafc)}
+.level-badge,.booked-badge{position:absolute;top:12px;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;box-shadow:0 4px 12px rgba(15,40,90,.15)}
+.level-badge{left:12px;background:#fff;color:var(--brand-dark)}
+.level-beginner{color:#1f7a4a}
+.level-intermediate{color:#b45309}
+.level-advanced{color:#b91c1c}
+.booked-badge{right:12px;background:#1f7a4a;color:#fff}
+.lesson-body{gap:8px}
+.schedule{font-weight:700;color:var(--brand);font-size:12px;letter-spacing:.01em}
+.teacher-row{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink)}
+.avatar{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;color:#fff;font-size:13px;font-weight:800;flex-shrink:0}
+.lesson-facts{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pill{font-size:12px;font-weight:600;color:var(--brand-dark);background:var(--accent-soft);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.lesson-body p{font-size:14px}
+.my-rating{color:#b45309;font-weight:700}
+.lesson-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.lesson-body .lesson-foot .button{width:auto;padding:10px 18px}
+.lesson-body .lesson-foot .price{margin-top:0}
+
+#modalText:empty{display:none}
+#modalBody{display:grid;gap:16px;margin-bottom:20px}
+#modalBody .lesson-image{border-radius:16px;aspect-ratio:16/8}
+.detail-desc{margin:0;color:var(--muted)}
+.teacher-profile,.availability,.rating-block{border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;gap:8px}
+.teacher-profile p,.rating-block p{margin:0;color:var(--muted);font-size:14px}
+.teacher-head{display:flex;align-items:center;gap:12px}
+.teacher-head .avatar{width:42px;height:42px;font-size:18px}
+.teacher-head div{display:grid}
+.slots{display:flex;flex-wrap:wrap;gap:8px}
+.slot{font-size:13px;font-weight:700;color:var(--brand-dark);background:#fff;border:1px solid #9dbcf2;border-radius:10px;padding:6px 12px}
+.stars{display:flex;gap:2px}
+.star{background:none;border:0;font-size:28px;line-height:1;color:#f59e0b;padding:2px}
+.star:disabled{color:#cbd5e1;cursor:not-allowed}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){
+  .market-controls{grid-template-columns:1fr 1fr}
+  .market-controls .search{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .form-row{grid-template-columns:1fr}
+}

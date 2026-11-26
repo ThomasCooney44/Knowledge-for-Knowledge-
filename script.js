@@ -4,66 +4,101 @@ const INTEREST_FORM_URL = '';
 
 const examples = [
   {
-    id: 'excel',
-    title: 'Excel for everyday work',
-    category: 'Career & tech',
-    format: 'Online · 45 min',
-    desc: 'Learn formulas, shortcuts and how to organise your data with confidence.',
-    image: 'excel-lessons.png',
-    alt: 'Laptop showing Excel on screen'
-  },
-  {
     id: 'spanish',
-    title: 'Conversational Spanish',
-    category: 'Languages',
-    format: 'In person · 30 min',
-    desc: 'Practise useful everyday phrases in a relaxed beginner-friendly Spanish session.',
-    image: 'spanish-lessons.png',
-    alt: 'Illustration for learning Spanish'
+    title: 'Beginner Spanish Conversation',
+    category: 'Languages', level: 'Beginner', duration: 30, mode: 'Online',
+    schedule: 'Online conversational class · twice a week',
+    availability: ['Tue 7–8 pm', 'Thu 7–8 pm'],
+    teacher: { name: 'Sarah', bio: 'Lived in Valencia for two years and loves helping nervous beginners start speaking.' },
+    desc: 'Practise everyday Spanish phrases and improve your confidence speaking.',
+    image: 'spanish-lessons.png', alt: 'Illustration for learning Spanish'
   },
   {
-    id: 'photo',
-    title: 'Better photography basics',
-    category: 'Creative',
-    format: 'In person · 45 min',
-    desc: 'Improve composition, framing and storytelling while learning the foundations of photography.',
-    image: 'photography-lessons.png',
-    alt: 'Person holding a camera for photography lesson'
+    id: 'excel',
+    title: 'Excel Formulas for Work',
+    category: 'Business', level: 'Intermediate', duration: 60, mode: 'Online',
+    schedule: 'Online workshop · weekly',
+    availability: ['Mon 1–2 pm', 'Wed 1–2 pm'],
+    teacher: { name: 'Daniel', bio: 'Uses Excel every day in a finance role and builds simple reporting templates.' },
+    desc: 'Master SUMIFS, XLOOKUP and tidy tables so your weekly reports take half the time.',
+    image: 'excel-lessons.png', alt: 'Laptop showing Excel on screen'
   },
   {
     id: 'coding',
-    title: 'Your first Python script',
-    category: 'Career & tech',
-    format: 'Online · 60 min',
-    desc: 'Get comfortable with variables, loops and simple programs in a beginner session.',
-    image: 'coding-lessons.png',
-    alt: 'Computer screen showing code for a beginner coding lesson'
+    title: 'Your First Python Script',
+    category: 'Technology', level: 'Beginner', duration: 60, mode: 'Online',
+    schedule: 'Online session · weekly',
+    availability: ['Sat 10–11 am', 'Sat 11 am–12 pm'],
+    teacher: { name: 'Priya', bio: 'Software developer who taught herself Python and remembers what was confusing at the start.' },
+    desc: 'Get comfortable with variables, loops and simple programs, and leave with a working script.',
+    image: 'coding-lessons.png', alt: 'Computer screen showing code for a beginner coding lesson'
   },
   {
     id: 'guitar',
-    title: 'Guitar for complete beginners',
-    category: 'Creative',
-    format: 'In person · 30 min',
-    desc: 'Learn your first chords and practise a simple progression with a friendly teacher.',
-    image: 'guitar-lessons.png',
-    alt: 'Person playing guitar for a guitar lesson'
+    title: 'Guitar Chords for Beginners',
+    category: 'Music', level: 'Beginner', duration: 30, mode: 'In person',
+    schedule: 'In-person lesson · weekly',
+    availability: ['Mon 6–7 pm', 'Wed 6–7 pm'],
+    teacher: { name: 'Liam', bio: 'Has played in local bands for ten years and keeps lessons relaxed and fun.' },
+    desc: 'Learn your first four chords and play a simple song by the end of the session.',
+    image: 'guitar-lessons.png', alt: 'Person playing guitar for a guitar lesson'
   },
   {
     id: 'cooking',
-    title: 'Student-friendly meal prep',
-    category: 'Lifestyle',
-    format: 'Online · 30 min',
-    desc: 'Learn how to plan affordable meals for the week without spending too much time.',
-    image: 'meal-prep-lessons.png',
-    alt: 'Prepared meal prep containers for a cooking lesson'
+    title: 'Budget Meal Prep',
+    category: 'Cooking', level: 'Beginner', duration: 30, mode: 'Online',
+    schedule: 'Online cook-along · weekly',
+    availability: ['Sun 2–3 pm', 'Sun 4–5 pm'],
+    teacher: { name: 'Aoife', bio: 'Preps a full week of lunches every Sunday on a tight budget.' },
+    desc: 'Plan and prep five healthy lunches for the week without spending much time or money.',
+    image: 'meal-prep-lessons.png', alt: 'Prepared meal prep containers for a cooking lesson'
+  },
+  {
+    id: 'photo',
+    title: 'Smartphone Photography',
+    category: 'Technology', level: 'Intermediate', duration: 30, mode: 'In person',
+    schedule: 'In-person photo walk · fortnightly',
+    availability: ['Sat 2–3 pm'],
+    teacher: { name: 'Jamie', bio: 'Hobby photographer who shoots everything on a phone.' },
+    desc: 'Improve composition, lighting and editing so your phone photos look professional.',
+    image: 'photography-lessons.png', alt: 'Person holding a camera for photography lesson'
+  },
+  {
+    id: 'running',
+    title: 'Couch to 5K Running',
+    category: 'Sports', level: 'Beginner', duration: 30, mode: 'In person',
+    schedule: 'In-person run · weekly',
+    availability: ['Sat 9–9:30 am', 'Sun 9–9:30 am'],
+    teacher: { name: 'Conor', bio: 'Club runner who has helped friends complete their first 5K.' },
+    desc: 'A friendly, beginner-paced run with tips on pacing, breathing and building a routine.'
+  },
+  {
+    id: 'interview',
+    title: 'Interview Practice: Mock Questions',
+    category: 'Business', level: 'Intermediate', duration: 15, mode: 'Online',
+    schedule: 'Online quick-fire session · on request',
+    availability: ['Tue 6–8 pm', 'Thu 6–8 pm'],
+    teacher: { name: 'Niamh', bio: 'Recently went through graduate interviews and now helps others prepare.' },
+    desc: 'Answer three common interview questions and get quick, honest feedback on each answer.'
+  },
+  {
+    id: 'french',
+    title: 'Business French Phrases',
+    category: 'Languages', level: 'Advanced', duration: 15, mode: 'Online',
+    schedule: 'Online drop-in · twice a week',
+    availability: ['Mon 8–9 am', 'Fri 8–9 am'],
+    teacher: { name: 'Claire', bio: 'Fluent French speaker who uses it daily with clients.' },
+    desc: 'Polish the phrases you need for meetings and emails with French-speaking colleagues.'
   }
 ];
 
 const fallbackArtwork = {
-  'Career & tech': '⌘',
-  'Languages': 'Aa',
-  'Creative': '◌',
-  'Lifestyle': '✦'
+  'Languages': '💬',
+  'Technology': '💻',
+  'Business': '📊',
+  'Cooking': '🍳',
+  'Sports': '🏃',
+  'Music': '🎵'
 };
 
 const $ = id => document.getElementById(id);
@@ -71,17 +106,18 @@ const key = 'kfk-demo-v2';
 const pilotKey = 'kfk-pilot-response-v1';
 let pilotResponse = null;
 try { pilotResponse = JSON.parse(localStorage.getItem(pilotKey)); } catch {}
-const fresh = () => ({ tokens: 0, offers: [], booked: [], interest: 0 });
+const fresh = () => ({ tokens: 0, offers: [], booked: [], interest: 0, ratings: {} });
 let state = fresh();
 
 try {
   const saved = JSON.parse(localStorage.getItem(key));
   if (saved && Number.isInteger(saved.tokens) && Array.isArray(saved.offers) && Array.isArray(saved.booked)) state = saved;
 } catch {}
+if (!state.ratings || typeof state.ratings !== 'object') state.ratings = {};
 
 let category = 'All';
 let timer;
-const categories = ['All', 'Career & tech', 'Languages', 'Creative', 'Lifestyle'];
+const categories = ['All', 'Languages', 'Technology', 'Business', 'Cooking', 'Sports', 'Music'];
 
 function save() {
   try { localStorage.setItem(key, JSON.stringify(state)); } catch {}
@@ -118,9 +154,10 @@ function notify(text) {
   timer = setTimeout(() => $('toast').style.display = 'none', 3800);
 }
 
-function modal(title, text, actions = []) {
+function modal(title, text, actions = [], body = []) {
   $('modalTitle').textContent = title;
   $('modalText').textContent = text;
+  $('modalBody').replaceChildren(...body);
   $('modalActions').replaceChildren(...actions);
   if (!$('modal').open) $('modal').showModal();
 }
@@ -207,6 +244,94 @@ function makeArtwork(lesson) {
   return wrapper;
 }
 
+function avatar(name) {
+  const a = el('span', name.charAt(0), 'avatar');
+  let h = 0;
+  for (const c of name) h = (h * 31 + c.charCodeAt(0)) % 360;
+  a.style.background = `hsl(${h} 70% 45%)`;
+  a.setAttribute('aria-hidden', 'true');
+  return a;
+}
+
+function pill(text, cls = 'pill') {
+  return el('span', text, cls);
+}
+
+function lessonCard(l) {
+  const card = el('article', undefined, 'lesson');
+  const art = makeArtwork(l);
+  art.append(pill(l.level, 'level-badge level-' + l.level.toLowerCase()));
+  if (state.booked.includes(l.id)) art.append(pill('✓ Booked', 'booked-badge'));
+  const body = el('div', undefined, 'lesson-body');
+  const teacher = el('div', undefined, 'teacher-row');
+  teacher.append(avatar(l.teacher.name), el('span', `Taught by ${l.teacher.name} · ${l.level}`));
+  const facts = el('div', undefined, 'lesson-facts');
+  facts.append(pill(`⏱ ${l.duration}-minute session`), pill('📅 ' + l.availability[0] + (l.availability.length > 1 ? ' +' + (l.availability.length - 1) : '')));
+  const foot = el('div', undefined, 'lesson-foot');
+  const view = btn('View lesson', () => viewLesson(l));
+  view.setAttribute('aria-label', 'View lesson: ' + l.title);
+  foot.append(tokenPrice(), view);
+  const rating = state.ratings[l.id];
+  body.append(
+    el('span', l.schedule, 'meta schedule'),
+    el('h3', l.title),
+    teacher,
+    facts,
+    el('p', l.desc)
+  );
+  if (rating) body.append(el('span', `★ Your demo rating: ${rating}/5`, 'meta my-rating'));
+  body.append(foot);
+  card.append(art, body);
+  return card;
+}
+
+function ratingBlock(l) {
+  const wrap = el('div', undefined, 'rating-block');
+  wrap.append(el('strong', 'Lesson ratings'));
+  const booked = state.booked.includes(l.id);
+  const current = state.ratings[l.id] || 0;
+  const stars = el('div', undefined, 'stars');
+  stars.setAttribute('role', 'group');
+  stars.setAttribute('aria-label', 'Rate this demo lesson');
+  for (let i = 1; i <= 5; i++) {
+    const s = btn(i <= current ? '★' : '☆', () => {
+      state.ratings[l.id] = i; save(); viewLesson(l); notify(`Thanks! Demo rating saved: ${i}/5.`);
+    }, 'star');
+    s.setAttribute('aria-label', `${i} star${i > 1 ? 's' : ''}`);
+    s.disabled = !booked;
+    stars.append(s);
+  }
+  wrap.append(stars, el('p', booked
+    ? (current ? `Your demo rating: ${current}/5. Stored on this device only.` : 'How was it? Tap a star to rate your demo lesson.')
+    : 'No ratings yet. In the pilot, learners will rate each lesson after it finishes. Book this demo lesson to try it.', 'small'));
+  return wrap;
+}
+
+function viewLesson(l) {
+  const booked = state.booked.includes(l.id);
+  const body = [];
+  body.push(makeArtwork(l));
+  const profile = el('div', undefined, 'teacher-profile');
+  const who = el('div');
+  who.append(el('strong', l.teacher.name), el('span', `Sample teacher · ${l.category}`, 'meta'));
+  const head = el('div', undefined, 'teacher-head');
+  head.append(avatar(l.teacher.name), who);
+  profile.append(head, el('p', l.teacher.bio));
+  body.push(el('p', l.desc, 'detail-desc'));
+  const facts = el('div', undefined, 'lesson-facts');
+  facts.append(pill(l.level), pill(`⏱ ${l.duration} minutes`), pill(l.mode), tokenPrice());
+  body.push(facts, profile);
+  const avail = el('div', undefined, 'availability');
+  avail.append(el('strong', 'Availability'), el('span', l.schedule, 'meta'));
+  const slots = el('div', undefined, 'slots');
+  for (const t of l.availability) slots.append(pill(t, 'slot'));
+  avail.append(slots);
+  body.push(avail, ratingBlock(l));
+  const book1 = btn(booked ? 'Demo booked' : 'Book with 1 token', () => book(l));
+  book1.disabled = booked;
+  modal(l.title, '', [book1, btn('I want to learn this', () => showInterest(l), 'button secondary')], body);
+}
+
 function render() {
   $('balance').textContent = state.tokens;
   $('tokenLabel').textContent = state.tokens === 1 ? 'token' : 'tokens';
@@ -218,38 +343,23 @@ function render() {
   }));
 
   const query = $('search').value.trim().toLowerCase();
+  const level = $('levelFilter').value;
+  const duration = $('durationFilter').value;
   const visible = examples.filter(l =>
     (category === 'All' || l.category === category) &&
-    `${l.title} ${l.desc} ${l.category}`.toLowerCase().includes(query)
+    (!level || l.level === level) &&
+    (!duration || String(l.duration) === duration) &&
+    `${l.title} ${l.desc} ${l.category} ${l.teacher.name} ${l.level}`.toLowerCase().includes(query)
   );
 
   $('resultCount').textContent = visible.length + (visible.length === 1 ? ' lesson' : ' lessons') + ' found';
-  $('clearFilters').hidden = category === 'All' && !query;
-  $('lessons').replaceChildren(...visible.map(l => {
-    const card = el('article', undefined, 'lesson');
-    const body = el('div', undefined, 'lesson-body');
-    const booked = state.booked.includes(l.id);
-    const b = btn(booked ? 'Demo booked' : 'Try demo booking', () => book(l));
-    b.disabled = booked;
-    const interest = btn('I want to learn this', () => showInterest(l), 'lesson-interest');
-    interest.setAttribute('aria-label', 'Express pilot interest in ' + l.title);
-    body.append(
-      el('span', `${l.category} · Sample listing`, 'meta'),
-      el('h3', l.title),
-      el('p', l.desc),
-      el('span', l.format, 'meta'),
-      tokenPrice(),
-      b, interest
-    );
-    card.append(makeArtwork(l), body);
-    return card;
-  }));
-
+  $('clearFilters').hidden = category === 'All' && !query && !level && !duration;
+  $('lessons').replaceChildren(...visible.map(lessonCard));
   if (!visible.length) $('lessons').append(el('p', 'No lessons match. Try another search or clear your filters.', 'empty-state'));
 
   $('myLessons').replaceChildren(...state.offers.map(o => {
     const a = el('div', undefined, 'own');
-    a.append(el('strong', o.skill), el('span', `${o.category} · ${o.format}`, 'meta'), el('p', o.description));
+    a.append(el('strong', o.skill), el('span', o.format ? `${o.category} · ${o.format}` : `${o.category} · ${o.level} · ${o.mode} · ${o.duration} min`, 'meta'), el('p', o.description));
     if (o.completed) {
       a.append(el('span', 'Completed · +1 demo token', 'price'));
     } else {
@@ -277,8 +387,10 @@ $('teachForm').addEventListener('submit', e => {
 });
 
 $('search').addEventListener('input', render);
+$('levelFilter').addEventListener('change', render);
+$('durationFilter').addEventListener('change', render);
 $('close').addEventListener('click', close);
-$('clearFilters').addEventListener('click', () => { category = 'All'; $('search').value = ''; render(); $('search').focus(); });
+$('clearFilters').addEventListener('click', () => { category = 'All'; $('search').value = ''; $('levelFilter').value = ''; $('durationFilter').value = ''; render(); $('search').focus(); });
 $('pilotForm').addEventListener('submit', e => {
   e.preventDefault();
   const answer = Object.fromEntries(new FormData(e.currentTarget));

@@ -10,9 +10,9 @@ A GitHub Pages pretotype for a peer-to-peer skill exchange. Teach a lesson, earn
 Settings → Pages → Deploy from a branch → main → / (root).
 
 ## Test the experience
-1. Browse/search/filter the six sample listings.
+1. Browse the nine sample listings; filter by category, difficulty and lesson length; open "View lesson" to see the teacher profile and availability.
 2. Try booking with zero tokens. Create a demo teaching offer and simulate completing it.
-3. Confirm a demo booking, inspect the wallet, cancel the booking and verify the token is returned.
+3. Confirm a demo booking, inspect the wallet, rate the booked lesson (stored locally), cancel the booking and verify the token is returned.
 4. Try the separate "I want to learn this" action. Complete the anonymous pilot form, download its CSV, reload, and check persistence.
 5. Reset the demo. No real bookings, lessons, accounts or transfers are created.
 

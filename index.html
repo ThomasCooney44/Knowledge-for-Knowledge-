@@ -129,13 +129,32 @@
         <div>
           <p class="eyebrow">EXPLORE THE MARKETPLACE</p>
           <h2>Find your next skill.</h2>
+          <p class="section-lead">Browse sample lessons from people in the community. Filter by topic, difficulty and how much time you have.</p>
         </div>
-        <span class="small badge-note">1 lesson = 1 token in this demo</span>
+        <span class="small badge-note">Any lesson length = 1 token in this demo</span>
       </div>
       <div class="filters" id="filters" aria-label="Filter lessons"></div>
-      <label class="search">Search lessons
-        <input id="search" type="search" placeholder="Try Excel, Spanish or photography">
-      </label>
+      <div class="market-controls">
+        <label class="search">Search lessons or teachers
+          <input id="search" type="search" placeholder="Try Spanish, Python or Sarah">
+        </label>
+        <label>Difficulty
+          <select id="levelFilter">
+            <option value="">All levels</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </label>
+        <label>Lesson length
+          <select id="durationFilter">
+            <option value="">Any length</option>
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">60 minutes</option>
+          </select>
+        </label>
+      </div>
       <div class="market-status"><p id="resultCount" role="status"></p><button class="textbutton" id="clearFilters" type="button" hidden>Clear filters</button></div>
       <div id="lessons" class="cards"></div>
     </section>
@@ -152,22 +171,40 @@
         <label>What can you teach?
           <input name="skill" required maxlength="80" placeholder="e.g. Beginner Excel shortcuts">
         </label>
-        <label>Category
-          <select name="category">
-            <option>Career & tech</option>
-            <option>Languages</option>
-            <option>Creative</option>
-            <option>Lifestyle</option>
-          </select>
-        </label>
-        <label>Lesson format
-          <select name="format">
-            <option>Online · 30 min</option>
-            <option>In person · 30 min</option>
-            <option>Online · 60 min</option>
-            <option>In person · 60 min</option>
-          </select>
-        </label>
+        <div class="form-row">
+          <label>Category
+            <select name="category">
+              <option>Languages</option>
+              <option>Technology</option>
+              <option>Business</option>
+              <option>Cooking</option>
+              <option>Sports</option>
+              <option>Music</option>
+            </select>
+          </label>
+          <label>Difficulty
+            <select name="level">
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Format
+            <select name="mode">
+              <option>Online</option>
+              <option>In person</option>
+            </select>
+          </label>
+          <label>Lesson length
+            <select name="duration">
+              <option value="15">15 minutes</option>
+              <option value="30" selected>30 minutes</option>
+              <option value="60">60 minutes</option>
+            </select>
+          </label>
+        </div>
         <label>What will someone learn?
           <textarea name="description" required maxlength="240" placeholder="Describe what your lesson covers"></textarea>
         </label>
@@ -188,7 +225,7 @@
         <label>What would you like to learn?
           <select name="learn" id="pilotLearn" required>
             <option value="">Choose a skill</option>
-            <option>Excel for everyday work</option><option>Conversational Spanish</option><option>Better photography basics</option><option>Your first Python script</option><option>Guitar for complete beginners</option><option>Student-friendly meal prep</option><option>Something else</option>
+            <option>Beginner Spanish Conversation</option><option>Excel Formulas for Work</option><option>Your First Python Script</option><option>Guitar Chords for Beginners</option><option>Budget Meal Prep</option><option>Smartphone Photography</option><option>Couch to 5K Running</option><option>Interview Practice: Mock Questions</option><option>Business French Phrases</option><option>Something else</option>
           </select>
         </label>
         <label>Would you teach a lesson to earn a learning token?
@@ -231,6 +268,7 @@
     <button id="close" class="close" aria-label="Close" type="button">×</button>
     <h2 id="modalTitle"></h2>
     <p id="modalText"></p>
+    <div id="modalBody"></div>
     <div id="modalActions" class="actions"></div>
   </dialog>
   <div id="toast" role="status" aria-live="polite"></div>
