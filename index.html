@@ -18,6 +18,7 @@
       <a class="brand" href="#home"><span class="brand-mark">K↔K</span><span>Knowledge for Knowledge</span></a>
       <nav class="main-nav" aria-label="Primary">
         <a href="#market">Explore</a>
+        <a href="#why">Why swap</a>
         <a href="#how">How it works</a>
         <a href="#teach">Teach a skill</a>
         <a href="#pilot">Join the pilot</a>
@@ -30,41 +31,79 @@
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">THE SKILL EXCHANGE</p>
-        <h1>You teach <span>to learn.</span></h1>
-        <p class="lead">Learn practical skills from other people, without paying for lessons. Teach something you know, earn one token, and exchange it for a lesson in something you want to learn.</p>
+        <h1>Learn something new. <span>Share something you know.</span></h1>
+        <p class="lead">Exchange your skills with other people. Teach what you know, earn tokens and use them to learn something completely new.</p>
         <div class="actions">
-          <a class="button" href="#market">Explore lessons</a>
-          <a class="button secondary" href="#teach">Share a skill</a>
+          <a class="button" href="#market">Explore skills</a>
+          <a class="button secondary" href="#teach">Become a teacher</a>
         </div>
         <div class="hero-benefits"><span>✓ No lesson fees</span><span>✓ Beginner-friendly</span><span>✓ Learn from peers</span></div>
         <p class="small">University pretotype · Try the simulated marketplace or express interest in a future pilot.</p>
       </div>
-      <div class="hero-panel" aria-label="Preview of featured skills and token exchange">
-        <article class="hero-card lesson-mini">
-          <img src="spanish-lessons.png" alt="Illustration for Spanish language lessons">
-          <div class="hero-card-copy">
-            <strong>Spanish language</strong>
-            <span>Teach a lesson</span>
-          </div>
-        </article>
-        <div class="hero-coin" aria-hidden="true">
-          <img class="coin-icon" src="token.png" alt="">
-          <span class="coin-text">1 TOKEN</span>
+      <div class="hero-visual">
+        <img class="hero-photo" src="hero-people.jpg" alt="Two people smiling and sharing what they know while working at a laptop">
+        <div class="float-chip chip-teach" aria-hidden="true">
+          <img src="excel-lessons.png" alt="">
+          <div><strong>Teach Excel</strong><span class="gain">+1 token</span></div>
         </div>
-        <article class="hero-card lesson-mini excel-card">
-          <img src="excel-lessons.png" alt="Laptop showing Microsoft Excel for Excel lessons">
-          <div class="hero-card-copy">
-            <strong>Excel skills</strong>
-            <span>Learn a lesson</span>
-          </div>
+        <div class="float-chip chip-learn" aria-hidden="true">
+          <img src="spanish-lessons.png" alt="">
+          <div><strong>Learn Spanish</strong><span class="spend">−1 token</span></div>
+        </div>
+        <img class="hero-float-coin" src="token.png" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <section id="why" class="section why-section">
+      <div class="section-heading">
+        <p class="eyebrow">WHY SWAP SKILLS?</p>
+        <h2>Your knowledge is worth something. Use it.</h2>
+        <p class="section-lead">Paying for every new skill adds up quickly. A skill exchange lets you learn by giving back what you already know.</p>
+      </div>
+      <div class="compare">
+        <article class="compare-card compare-paid">
+          <h3>Paying for lessons</h3>
+          <ul>
+            <li>Every lesson costs money, week after week</li>
+            <li>You are only ever the student</li>
+            <li>Fixed courses that may not fit what you need</li>
+          </ul>
+        </article>
+        <article class="compare-card compare-swap">
+          <h3>Swapping skills</h3>
+          <ul>
+            <li>Costs your time, not your money</li>
+            <li>Teaching builds your confidence and deepens what you know</li>
+            <li>Learn practical, real-world skills from real people</li>
+            <li>Meet people outside your usual circle</li>
+          </ul>
         </article>
       </div>
     </section>
 
     <section id="how" class="section how-section">
       <div class="section-heading">
-        <p class="eyebrow">HOW IT WORKS</p>
-        <h2>Share what you know. Learn what you love.</h2>
+        <p class="eyebrow">HOW TOKENS WORK</p>
+        <h2>One lesson taught = one lesson learned.</h2>
+      </div>
+      <div class="token-flow" role="img" aria-label="Token flow: teach a lesson in Excel to earn one token, which goes into your wallet, then spend that token to learn Spanish from someone else.">
+        <div class="flow-node">
+          <img src="excel-lessons.png" alt="">
+          <strong>You teach Excel</strong>
+          <span>30-minute online lesson</span>
+        </div>
+        <div class="flow-link"><div class="flow-track"><img class="flow-coin" src="token.png" alt=""></div><span class="gain">+1 token</span></div>
+        <div class="flow-node wallet-node">
+          <div class="mini-wallet"><img src="token.png" alt=""><b>1</b></div>
+          <strong>Your wallet</strong>
+          <span>Saved until you are ready</span>
+        </div>
+        <div class="flow-link"><div class="flow-track"><img class="flow-coin" src="token.png" alt=""></div><span class="spend">−1 token</span></div>
+        <div class="flow-node">
+          <img src="spanish-lessons.png" alt="">
+          <strong>You learn Spanish</strong>
+          <span>From another member</span>
+        </div>
       </div>
       <div class="steps">
         <article>
