@@ -4,7 +4,9 @@ A GitHub Pages pretotype for a peer-to-peer skill exchange. Teach a lesson, earn
 
 ## Files
 - index.html, style.css, script.js
-- Six lesson PNG images in the repository root (not in an assets folder).
+- Lesson PNG images, `token.png` and `hero-people.jpg` in the repository root.
+- `illustrations/`: SVG illustrations used across the page.
+- `CHANGELOG.md`: a log of design and feature changes.
 
 ## Deploy
 Settings → Pages → Deploy from a branch → main → / (root).

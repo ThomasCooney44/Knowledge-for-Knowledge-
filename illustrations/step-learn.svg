@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" role="img" aria-label="An open book with a lightbulb above it">
+  <ellipse cx="80" cy="108" rx="60" ry="7" fill="#efe6d3"/>
+  <path d="M80 56c-14-8-34-10-52-6v50c18-4 38-2 52 6z" fill="#fff" stroke="#0b1d3a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M80 56c14-8 34-10 52-6v50c-18-4-38-2-52 6z" fill="#e6eefc" stroke="#0b1d3a" stroke-width="3" stroke-linejoin="round"/>
+  <line x1="80" y1="56" x2="80" y2="106" stroke="#0b1d3a" stroke-width="3"/>
+  <g stroke="#93b4f5" stroke-width="3" stroke-linecap="round"><line x1="38" y1="66" x2="70" y2="68"/><line x1="38" y1="76" x2="70" y2="78"/><line x1="38" y1="86" x2="62" y2="88"/></g>
+  <g stroke="#1d4ed8" stroke-width="3" stroke-linecap="round"><line x1="90" y1="68" x2="122" y2="66"/><line x1="90" y1="78" x2="122" y2="76"/></g>
+  <circle cx="80" cy="24" r="13" fill="#f2b632"/>
+  <rect x="74" y="35" width="12" height="7" rx="2" fill="#0b1d3a"/>
+  <g stroke="#f2b632" stroke-width="3" stroke-linecap="round"><line x1="80" y1="2" x2="80" y2="6"/><line x1="58" y1="12" x2="62" y2="15"/><line x1="102" y1="12" x2="98" y2="15"/></g>
+</svg>

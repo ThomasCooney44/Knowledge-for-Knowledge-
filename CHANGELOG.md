@@ -2,6 +2,17 @@
 
 All changes on the `kfk-coin-token-icon` branch, newest first. Nothing here is live until the branch is merged into `main`.
 
+## 26 Nov 2026 — Overall design: navy, blue & cream identity
+- **New palette:** dark navy (#0b1d3a), blue (#1d4ed8) and cream (#faf6ee / #f3ecdd), with the gold coin as the accent. Replaces the earlier blue and white.
+- **More prominent navigation:** a solid navy bar with the KfK coin as the logo, the current section highlighted as you scroll, a **Become a teacher** button and a white wallet pill. The menu is trimmed to Explore, How it works, My tokens, Trust & safety and Join the pilot.
+- **Mobile menu:** below 1100px the links collapse into a hamburger menu that opens a full-width navy panel and closes after you pick a link.
+- **More whitespace:** larger spacing between sections (104px desktop, 60–72px mobile) and bigger gaps under section headings.
+- **Consistent cards:** one shared style (white, 20px corners, the same border and soft shadow, the same hover lift) across steps, lessons, dashboard, trust, comparison and form cards.
+- **Token animations:** earning a token sends a gold coin with sparkles from where you clicked to the wallet. The wallet pulses gold, a "+1" label appears, and the dashboard balance pops. Spending gives a small dip and a "−1". Turned off automatically for people who prefer reduced motion.
+- **Illustrations:** six original SVG illustrations in `illustrations/`: Teach / Earn / Learn steps, two people exchanging skills (teach section), an empty-calendar state (dashboard) and a checklist (pilot section).
+- **Navy bands:** the pilot section and the footer are now navy, giving the page a clear start and end.
+- Checked at 390px, 768px and 1280px with no horizontal scrolling.
+
 ## 26 Nov 2026 — Trust & safety
 - New **Trust & safety** section (before the pilot form), linked as **Trust & safety** in the navigation, with four feature cards: Verified profiles, Ratings & reviews, Report a problem and the Token-back promise.
 - **Community guidelines** (six rules: be respectful, describe lessons honestly, meet safely, keep it token-only, show up or cancel early, speak up), also linked from the footer.

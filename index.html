@@ -15,15 +15,15 @@
   <a class="skip-link" href="#home">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#home"><span class="brand-mark">K↔K</span><span>Knowledge for Knowledge</span></a>
-      <nav class="main-nav" aria-label="Primary">
+      <a class="brand" href="#home"><img class="brand-logo" src="token.png" alt="" aria-hidden="true"><span class="brand-text">Knowledge <em>for</em> Knowledge</span></a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav"><span class="menu-bars" aria-hidden="true"></span><span class="sr-only">Menu</span></button>
+      <nav class="main-nav" id="mainNav" aria-label="Primary">
         <a href="#market">Explore</a>
-        <a href="#why">Why swap</a>
         <a href="#how">How it works</a>
-        <a href="#teach">Teach a skill</a>
         <a href="#tokens">My tokens</a>
         <a href="#trust">Trust &amp; safety</a>
         <a href="#pilot">Join the pilot</a>
+        <a href="#teach" class="nav-cta">Become a teacher</a>
       </nav>
       <button id="wallet" class="wallet" type="button" aria-label="Open your token dashboard"><img class="token-icon" src="token.png" alt="" aria-hidden="true"> <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
     </div>
@@ -109,17 +109,20 @@
       </div>
       <div class="steps">
         <article>
-          <span>01</span>
+          <img class="step-illus" src="illustrations/step-teach.svg" alt="">
+          <span class="step-label">Step 1</span>
           <h3>Teach a skill</h3>
           <p>Create a short lesson in something you already know well, from Spanish to Excel to photography.</p>
         </article>
         <article>
-          <span>02</span>
+          <img class="step-illus" src="illustrations/step-earn.svg" alt="">
+          <span class="step-label">Step 2</span>
           <h3>Earn a token</h3>
           <p>Complete a teaching session to earn one token. For this demo, you can simulate that completion.</p>
         </article>
         <article>
-          <span>03</span>
+          <img class="step-illus" src="illustrations/step-learn.svg" alt="">
+          <span class="step-label">Step 3</span>
           <h3>Learn from someone else</h3>
           <p>Spend your token on another lesson and keep the cycle of knowledge moving.</p>
         </article>
@@ -215,6 +218,7 @@
         <h2>Turn your knowledge into opportunity.</h2>
         <p>Whether you can help someone use Excel, practise Spanish, take better photos or cook affordable meals, your skills can unlock something valuable for someone else.</p>
         <p class="small">Your demo listing is visible only to you on this device. It is not advertised to real learners.</p>
+        <img class="section-illus" src="illustrations/teach-together.svg" alt="Illustration of two people exchanging skills, with a token passing between them">
         <div class="journey-note"><strong>How you earn your first token</strong><p>1. Build and publish your lesson in three steps.<br>2. Simulate teaching it to earn 1 token.<br>3. Spend your token on a lesson you want to learn.</p></div>
         <div id="myLessons" class="my-offers" aria-live="polite"></div>
       </div>
@@ -373,6 +377,7 @@
 
     <section id="pilot" class="section pilot-section">
       <div class="pilot-copy">
+        <img class="pilot-illus" src="illustrations/pilot-clipboard.svg" alt="">
         <p class="eyebrow">HELP SHAPE THE FIRST PILOT</p>
         <h2>What would you exchange?</h2>
         <p>Tell us what you would genuinely like to learn and whether you would be willing to teach in return. This is a separate research exercise, not a booking.</p>
@@ -431,5 +436,6 @@
     <div id="modalActions" class="actions"></div>
   </dialog>
   <div id="toast" role="status" aria-live="polite"></div>
+  <div id="fx" aria-hidden="true"></div>
 </body>
 </html>
