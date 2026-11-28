@@ -2,6 +2,11 @@
 
 All website changes, newest first. The changes below the cache fix were merged into `main` in pull request #1 on 28 Nov 2026.
 
+## 28 Nov 2026 — Back to the blue and white design
+- Restored the blue and white design (as it was after the Trust & safety update), keeping every feature: marketplace, token dashboard, lesson builder, trust & safety.
+- Removed the navy, blue & cream redesign, its illustrations, token animations and hamburger menu (see the entry below; it can be restored from commit `e54aca5`).
+- CSS and JS links now use `?v=20261128b` so browsers fetch the restored files.
+
 ## 28 Nov 2026 — Cache fix after going live
 - Added a version number to the `style.css` and `script.js` links (`?v=20261128`) so browsers that had the old design cached download the new files instead of mixing old styles with the new page. Bump this number whenever the CSS or JS changes.
 
