@@ -1,6 +1,9 @@
 # Changelog
 
-All changes on the `kfk-coin-token-icon` branch, newest first. Nothing here is live until the branch is merged into `main`.
+All website changes, newest first. The changes below the cache fix were merged into `main` in pull request #1 on 28 Nov 2026.
+
+## 28 Nov 2026 — Cache fix after going live
+- Added a version number to the `style.css` and `script.js` links (`?v=20261128`) so browsers that had the old design cached download the new files instead of mixing old styles with the new page. Bump this number whenever the CSS or JS changes.
 
 ## 26 Nov 2026 — Overall design: navy, blue & cream identity
 - **New palette:** dark navy (#0b1d3a), blue (#1d4ed8) and cream (#faf6ee / #f3ecdd), with the gold coin as the accent. Replaces the earlier blue and white.
