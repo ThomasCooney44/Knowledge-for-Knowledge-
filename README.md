@@ -4,17 +4,20 @@ A GitHub Pages pretotype for a peer-to-peer skill exchange. Teach a lesson, earn
 
 ## Files
 - index.html, style.css, script.js
-- Six lesson PNG images in the repository root (not in an assets folder).
+- Lesson PNG images, `token.png` and `hero-people.jpg` in the repository root.
+- `illustrations/`: SVG illustrations used across the page.
+- `CHANGELOG.md`: a log of design and feature changes.
 
 ## Deploy
 Settings → Pages → Deploy from a branch → main → / (root).
 
 ## Test the experience
-1. Browse/search/filter the six sample listings.
-2. Try booking with zero tokens. Create a demo teaching offer and simulate completing it.
-3. Confirm a demo booking, inspect the wallet, cancel the booking and verify the token is returned.
-4. Try the separate "I want to learn this" action. Complete the anonymous pilot form, download its CSV, reload, and check persistence.
-5. Reset the demo. No real bookings, lessons, accounts or transfers are created.
+1. Browse the nine sample listings; filter by category, difficulty and lesson length; open "View lesson" to see the teacher profile and availability.
+2. Try booking with zero tokens. Build a lesson in the three-step "Teach a skill" builder (skill → lesson → preview), publish it, check it appears in the marketplace, then simulate teaching it.
+3. Confirm a demo booking and open the token dashboard (wallet button or "My tokens"). Mark the lesson completed and rate it, or cancel the booking and check the token is returned.
+4. In Trust & safety, simulate email verification. Rate and review a completed lesson, then use "Report a problem" and choose "didn't match its description" to see the token returned.
+5. Try the separate "I want to learn this" action. Complete the anonymous pilot form, download its CSV, reload, and check persistence.
+6. Reset the demo. No real bookings, lessons, accounts or transfers are created.
 
 ## Research and measurement
 The pilot form captures a desired skill, willingness to teach, optional offered skill, time commitment and preferred format. It saves one anonymous response per browser; it does not transmit it. Visitors can choose to download and share the CSV. Do not ask visitors to include personal information.

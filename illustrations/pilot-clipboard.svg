@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" role="img" aria-label="A clipboard with a checklist">
+  <ellipse cx="80" cy="110" rx="50" ry="6" fill="rgba(255,255,255,.12)"/>
+  <rect x="42" y="14" width="76" height="92" rx="8" fill="#fff"/>
+  <rect x="62" y="8" width="36" height="14" rx="5" fill="#f2b632"/>
+  <g stroke="#1d4ed8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="54,40 59,45 67,35"/><polyline points="54,62 59,67 67,57"/>
+  </g>
+  <rect x="52" y="78" width="14" height="14" rx="3" fill="none" stroke="#93b4f5" stroke-width="3"/>
+  <g stroke="#0b1d3a" stroke-width="4" stroke-linecap="round"><line x1="76" y1="40" x2="106" y2="40"/><line x1="76" y1="62" x2="100" y2="62"/></g>
+  <line x1="76" y1="85" x2="104" y2="85" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round"/>
+  <path d="M128 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#f2b632"/>
+</svg>

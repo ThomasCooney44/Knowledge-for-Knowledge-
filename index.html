@@ -15,14 +15,17 @@
   <a class="skip-link" href="#home">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#home"><span class="brand-mark">K↔K</span><span>Knowledge for Knowledge</span></a>
-      <nav class="main-nav" aria-label="Primary">
+      <a class="brand" href="#home"><img class="brand-logo" src="token.png" alt="" aria-hidden="true"><span class="brand-text">Knowledge <em>for</em> Knowledge</span></a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav"><span class="menu-bars" aria-hidden="true"></span><span class="sr-only">Menu</span></button>
+      <nav class="main-nav" id="mainNav" aria-label="Primary">
         <a href="#market">Explore</a>
         <a href="#how">How it works</a>
-        <a href="#teach">Teach a skill</a>
+        <a href="#tokens">My tokens</a>
+        <a href="#trust">Trust &amp; safety</a>
         <a href="#pilot">Join the pilot</a>
+        <a href="#teach" class="nav-cta">Become a teacher</a>
       </nav>
-      <button id="wallet" class="wallet" type="button" aria-label="Open your demo wallet">◈ <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
+      <button id="wallet" class="wallet" type="button" aria-label="Open your token dashboard"><img class="token-icon" src="token.png" alt="" aria-hidden="true"> <span id="balance">0</span> <span id="tokenLabel">tokens</span></button>
     </div>
   </header>
 
@@ -30,57 +33,146 @@
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">THE SKILL EXCHANGE</p>
-        <h1>You teach <span>to learn.</span></h1>
-        <p class="lead">Learn practical skills from other people, without paying for lessons. Teach something you know, earn one token, and exchange it for a lesson in something you want to learn.</p>
+        <h1>Learn something new. <span>Share something you know.</span></h1>
+        <p class="lead">Exchange your skills with other people. Teach what you know, earn tokens and use them to learn something completely new.</p>
         <div class="actions">
-          <a class="button" href="#market">Explore lessons</a>
-          <a class="button secondary" href="#teach">Share a skill</a>
+          <a class="button" href="#market">Explore skills</a>
+          <a class="button secondary" href="#teach">Become a teacher</a>
         </div>
         <div class="hero-benefits"><span>✓ No lesson fees</span><span>✓ Beginner-friendly</span><span>✓ Learn from peers</span></div>
         <p class="small">University pretotype · Try the simulated marketplace or express interest in a future pilot.</p>
       </div>
-      <div class="hero-panel" aria-label="Preview of featured skills and token exchange">
-        <article class="hero-card lesson-mini">
-          <img src="spanish-lessons.png" alt="Illustration for Spanish language lessons">
-          <div class="hero-card-copy">
-            <strong>Spanish language</strong>
-            <span>Teach a lesson</span>
-          </div>
-        </article>
-        <div class="hero-coin" aria-hidden="true">
-          <span class="coin-icon">◈</span>
-          <span class="coin-text">1 TOKEN</span>
+      <div class="hero-visual">
+        <img class="hero-photo" src="hero-people.jpg" alt="Two people smiling and sharing what they know while working at a laptop">
+        <div class="float-chip chip-teach" aria-hidden="true">
+          <img src="excel-lessons.png" alt="">
+          <div><strong>Teach Excel</strong><span class="gain">+1 token</span></div>
         </div>
-        <article class="hero-card lesson-mini excel-card">
-          <img src="excel-lessons.png" alt="Laptop showing Microsoft Excel for Excel lessons">
-          <div class="hero-card-copy">
-            <strong>Excel skills</strong>
-            <span>Learn a lesson</span>
-          </div>
+        <div class="float-chip chip-learn" aria-hidden="true">
+          <img src="spanish-lessons.png" alt="">
+          <div><strong>Learn Spanish</strong><span class="spend">−1 token</span></div>
+        </div>
+        <img class="hero-float-coin" src="token.png" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <section id="why" class="section why-section">
+      <div class="section-heading">
+        <p class="eyebrow">WHY SWAP SKILLS?</p>
+        <h2>Your knowledge is worth something. Use it.</h2>
+        <p class="section-lead">Paying for every new skill adds up quickly. A skill exchange lets you learn by giving back what you already know.</p>
+      </div>
+      <div class="compare">
+        <article class="compare-card compare-paid">
+          <h3>Paying for lessons</h3>
+          <ul>
+            <li>Every lesson costs money, week after week</li>
+            <li>You are only ever the student</li>
+            <li>Fixed courses that may not fit what you need</li>
+          </ul>
+        </article>
+        <article class="compare-card compare-swap">
+          <h3>Swapping skills</h3>
+          <ul>
+            <li>Costs your time, not your money</li>
+            <li>Teaching builds your confidence and deepens what you know</li>
+            <li>Learn practical, real-world skills from real people</li>
+            <li>Meet people outside your usual circle</li>
+          </ul>
         </article>
       </div>
     </section>
 
     <section id="how" class="section how-section">
       <div class="section-heading">
-        <p class="eyebrow">HOW IT WORKS</p>
-        <h2>Share what you know. Learn what you love.</h2>
+        <p class="eyebrow">HOW TOKENS WORK</p>
+        <h2>One lesson taught = one lesson learned.</h2>
+      </div>
+      <div class="token-flow" role="img" aria-label="Token flow: teach a lesson in Excel to earn one token, which goes into your wallet, then spend that token to learn Spanish from someone else.">
+        <div class="flow-node">
+          <img src="excel-lessons.png" alt="">
+          <strong>You teach Excel</strong>
+          <span>30-minute online lesson</span>
+        </div>
+        <div class="flow-link"><div class="flow-track"><img class="flow-coin" src="token.png" alt=""></div><span class="gain">+1 token</span></div>
+        <div class="flow-node wallet-node">
+          <div class="mini-wallet"><img src="token.png" alt=""><b>1</b></div>
+          <strong>Your wallet</strong>
+          <span>Saved until you are ready</span>
+        </div>
+        <div class="flow-link"><div class="flow-track"><img class="flow-coin" src="token.png" alt=""></div><span class="spend">−1 token</span></div>
+        <div class="flow-node">
+          <img src="spanish-lessons.png" alt="">
+          <strong>You learn Spanish</strong>
+          <span>From another member</span>
+        </div>
       </div>
       <div class="steps">
         <article>
-          <span>01</span>
+          <img class="step-illus" src="illustrations/step-teach.svg" alt="">
+          <span class="step-label">Step 1</span>
           <h3>Teach a skill</h3>
           <p>Create a short lesson in something you already know well, from Spanish to Excel to photography.</p>
         </article>
         <article>
-          <span>02</span>
+          <img class="step-illus" src="illustrations/step-earn.svg" alt="">
+          <span class="step-label">Step 2</span>
           <h3>Earn a token</h3>
           <p>Complete a teaching session to earn one token. For this demo, you can simulate that completion.</p>
         </article>
         <article>
-          <span>03</span>
+          <img class="step-illus" src="illustrations/step-learn.svg" alt="">
+          <span class="step-label">Step 3</span>
           <h3>Learn from someone else</h3>
           <p>Spend your token on another lesson and keep the cycle of knowledge moving.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="tokens" class="section dashboard-section" tabindex="-1">
+      <div class="section-heading">
+        <p class="eyebrow">YOUR TOKEN DASHBOARD</p>
+        <h2>Track what you give and what you get.</h2>
+        <p class="section-lead">Every lesson you teach adds a token. Every lesson you take spends one. Your demo progress is saved on this device only.</p>
+      </div>
+      <div class="dashboard">
+        <article class="dash-card balance-card">
+          <div class="balance-top">
+            <img src="token.png" alt="" class="balance-coin">
+            <div>
+              <span class="dash-label">Current balance</span>
+              <strong class="balance-num"><span id="dashBalance">0</span> <span id="dashBalanceLabel">tokens</span></strong>
+            </div>
+          </div>
+          <div class="next-lesson">
+            <div class="next-head"><span class="dash-label">Progress to your next lesson</span><span id="dashNextPct" class="next-pct">0%</span></div>
+            <div class="bar" role="progressbar" aria-labelledby="dashNext" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="dashNextBarWrap"><span id="dashNextBar"></span></div>
+            <p id="dashNext" class="next-text"></p>
+          </div>
+          <a id="dashCta" class="button" href="#teach">Become a teacher</a>
+        </article>
+
+        <div class="stat-grid">
+          <article class="dash-card stat"><span class="stat-icon" aria-hidden="true">🎓</span><strong id="statTaught">0</strong><span>Lessons taught</span></article>
+          <article class="dash-card stat"><span class="stat-icon" aria-hidden="true">✅</span><strong id="statCompleted">0</strong><span>Lessons completed</span></article>
+          <article class="dash-card stat"><span class="stat-icon gain" aria-hidden="true">＋</span><strong id="statEarned">0</strong><span>Tokens earned</span></article>
+          <article class="dash-card stat"><span class="stat-icon spend" aria-hidden="true">－</span><strong id="statSpent">0</strong><span>Tokens spent</span></article>
+        </div>
+
+        <article class="dash-card milestones-card">
+          <h3>Milestones</h3>
+          <div id="milestones" class="milestones"></div>
+        </article>
+
+        <article class="dash-card leaderboard-card">
+          <div class="card-head"><h3>Community leaderboard</h3><span class="small">Sample members · illustrative</span></div>
+          <ol id="leaderboard" class="leaderboard"></ol>
+        </article>
+
+        <article class="dash-card activity-card">
+          <h3>Your lessons &amp; activity</h3>
+          <div id="myBookings" class="my-bookings"></div>
+          <ul id="activity" class="activity"></ul>
         </article>
       </div>
     </section>
@@ -90,13 +182,32 @@
         <div>
           <p class="eyebrow">EXPLORE THE MARKETPLACE</p>
           <h2>Find your next skill.</h2>
+          <p class="section-lead">Browse sample lessons from people in the community. Filter by topic, difficulty and how much time you have.</p>
         </div>
-        <span class="small badge-note">1 lesson = 1 token in this demo</span>
+        <span class="small badge-note">Any lesson length = 1 token in this demo</span>
       </div>
       <div class="filters" id="filters" aria-label="Filter lessons"></div>
-      <label class="search">Search lessons
-        <input id="search" type="search" placeholder="Try Excel, Spanish or photography">
-      </label>
+      <div class="market-controls">
+        <label class="search">Search lessons or teachers
+          <input id="search" type="search" placeholder="Try Spanish, Python or Sarah">
+        </label>
+        <label>Difficulty
+          <select id="levelFilter">
+            <option value="">All levels</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </label>
+        <label>Lesson length
+          <select id="durationFilter">
+            <option value="">Any length</option>
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">60 minutes</option>
+          </select>
+        </label>
+      </div>
       <div class="market-status"><p id="resultCount" role="status"></p><button class="textbutton" id="clearFilters" type="button" hidden>Clear filters</button></div>
       <div id="lessons" class="cards"></div>
     </section>
@@ -106,39 +217,167 @@
         <p class="eyebrow">EVERYONE HAS SOMETHING TO SHARE</p>
         <h2>Turn your knowledge into opportunity.</h2>
         <p>Whether you can help someone use Excel, practise Spanish, take better photos or cook affordable meals, your skills can unlock something valuable for someone else.</p>
-        <p class="small">Try the teaching journey below. Your demo offer stays on this device; it is not advertised to real learners.</p>
-        <div class="journey-note"><strong>Your first token</strong><p>1. List a skill you could teach.<br>2. Simulate completing your session.<br>3. Use your token to try a demo booking.</p></div>
+        <p class="small">Your demo listing is visible only to you on this device. It is not advertised to real learners.</p>
+        <img class="section-illus" src="illustrations/teach-together.svg" alt="Illustration of two people exchanging skills, with a token passing between them">
+        <div class="journey-note"><strong>How you earn your first token</strong><p>1. Build and publish your lesson in three steps.<br>2. Simulate teaching it to earn 1 token.<br>3. Spend your token on a lesson you want to learn.</p></div>
+        <div id="myLessons" class="my-offers" aria-live="polite"></div>
       </div>
-      <form id="teachForm" class="teach-form">
-        <label>What can you teach?
-          <input name="skill" required maxlength="80" placeholder="e.g. Beginner Excel shortcuts">
-        </label>
-        <label>Category
-          <select name="category">
-            <option>Career & tech</option>
-            <option>Languages</option>
-            <option>Creative</option>
-            <option>Lifestyle</option>
-          </select>
-        </label>
-        <label>Lesson format
-          <select name="format">
-            <option>Online · 30 min</option>
-            <option>In person · 30 min</option>
-            <option>Online · 60 min</option>
-            <option>In person · 60 min</option>
-          </select>
-        </label>
-        <label>What will someone learn?
-          <textarea name="description" required maxlength="240" placeholder="Describe what your lesson covers"></textarea>
-        </label>
-        <button class="button" type="submit">Create demo teaching offer</button>
-        <div id="myLessons" aria-live="polite"></div>
+
+      <form id="teachForm" class="teach-form wizard" novalidate>
+        <ol class="wizard-steps" aria-label="Lesson builder progress">
+          <li data-step="1" class="active"><span>1</span>Choose your skill</li>
+          <li data-step="2"><span>2</span>Create your lesson</li>
+          <li data-step="3"><span>3</span>Publish your offer</li>
+        </ol>
+
+        <fieldset class="wizard-panel" data-panel="1">
+          <legend>What are you comfortable teaching?</legend>
+          <p class="panel-hint">Pick something you could explain to a beginner without notes. It doesn't need to be a formal qualification.</p>
+          <div class="skill-ideas" aria-label="Popular skill ideas">
+            <button type="button" class="idea" data-skill="Excel shortcuts" data-category="Business">📊 Excel shortcuts</button>
+            <button type="button" class="idea" data-skill="Conversational Spanish" data-category="Languages">💬 Conversational Spanish</button>
+            <button type="button" class="idea" data-skill="Beginner guitar chords" data-category="Music">🎵 Beginner guitar</button>
+            <button type="button" class="idea" data-skill="Budget meal prep" data-category="Cooking">🍳 Budget meal prep</button>
+            <button type="button" class="idea" data-skill="Interview preparation" data-category="Business">💼 Interview prep</button>
+            <button type="button" class="idea" data-skill="Getting started with Python" data-category="Technology">💻 Python basics</button>
+          </div>
+          <label>Skill you can teach
+            <input name="skill" maxlength="80" placeholder="e.g. Excel shortcuts" autocomplete="off">
+          </label>
+          <div class="form-row">
+            <label>Category
+              <select name="category">
+                <option>Languages</option>
+                <option>Technology</option>
+                <option>Business</option>
+                <option>Cooking</option>
+                <option>Sports</option>
+                <option>Music</option>
+              </select>
+            </label>
+            <label>Who is it for?
+              <select name="level">
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+              </select>
+            </label>
+          </div>
+          <p class="field-error" data-error="1" role="alert"></p>
+          <div class="wizard-nav"><span></span><button type="button" class="button" data-next>Next: create your lesson →</button></div>
+        </fieldset>
+
+        <fieldset class="wizard-panel" data-panel="2" hidden>
+          <legend>Explain what someone will learn</legend>
+          <label>Lesson title
+            <input name="title" maxlength="70" placeholder="e.g. 10 Excel shortcuts that save hours">
+          </label>
+          <label>What will someone learn?
+            <textarea name="description" maxlength="240" placeholder="What will you cover, who is it for, and what will they leave with?"></textarea>
+            <span class="char-count"><span id="descCount">0</span>/240</span>
+          </label>
+          <details class="example-box" open>
+            <summary>✨ Example of a good lesson description</summary>
+            <blockquote id="exampleText">In 30 minutes, I'll show complete beginners the 10 Excel shortcuts I use every day at work. We'll practise on a sample spreadsheet together, and you'll leave with a one-page cheat sheet. Just bring a laptop with Excel installed.</blockquote>
+            <ul class="example-tips">
+              <li><strong>Be specific:</strong> say exactly what you'll cover.</li>
+              <li><strong>Say who it's for:</strong> complete beginners, improvers and so on.</li>
+              <li><strong>Name the outcome:</strong> what will they be able to do afterwards?</li>
+            </ul>
+            <p class="small example-more">More tips: <a href="#good-lesson">What makes a good lesson?</a> · <a href="#guidelines">Community guidelines</a></p>
+            <button type="button" class="textbutton" id="useExample">Use this example as a starting point</button>
+          </details>
+          <div class="form-row">
+            <label>Format
+              <select name="mode">
+                <option>Online</option>
+                <option>In person</option>
+              </select>
+            </label>
+            <label>How long does it take?
+              <select name="duration">
+                <option value="15">15 minutes</option>
+                <option value="30" selected>30 minutes</option>
+                <option value="60">60 minutes</option>
+              </select>
+            </label>
+          </div>
+          <label>When are you usually available? (Optional)
+            <input name="availability" maxlength="40" placeholder="e.g. Tuesday evenings">
+          </label>
+          <p class="field-error" data-error="2" role="alert"></p>
+          <div class="wizard-nav"><button type="button" class="button secondary" data-back>← Back</button><button type="button" class="button" data-next>Next: preview →</button></div>
+        </fieldset>
+
+        <fieldset class="wizard-panel" data-panel="3" hidden>
+          <legend>Preview your listing</legend>
+          <p class="panel-hint">This is how learners would see your lesson in the marketplace. Check it reads well before publishing.</p>
+          <div id="offerPreview" class="offer-preview"></div>
+          <ul class="checklist" id="offerChecklist"></ul>
+          <div class="wizard-nav"><button type="button" class="button secondary" data-back>← Edit lesson</button><button type="submit" class="button">Publish demo offer</button></div>
+        </fieldset>
       </form>
+    </section>
+
+    <section id="trust" class="section trust-section">
+      <div class="section-heading">
+        <p class="eyebrow">TRUST &amp; SAFETY</p>
+        <h2>Built on trust between people who are just getting to know each other.</h2>
+        <p class="section-lead">Lessons happen between members of the community, so trust is part of the design from day one. This is how the pilot would keep learners and teachers safe. In this demo, verification, reviews and reports are simulated and stay on your device.</p>
+      </div>
+
+      <div class="trust-features">
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">✓</span><h3>Verified profiles</h3><p>Every member verifies a university email address before they can teach or book.</p></article>
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">★</span><h3>Ratings &amp; reviews</h3><p>Only learners who completed a lesson can rate it, so feedback comes from real experience.</p></article>
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">⚑</span><h3>Report a problem</h3><p>Report inappropriate behaviour or a safety concern from any lesson, at any time.</p></article>
+        <article class="trust-card"><span class="trust-icon" aria-hidden="true">↺</span><h3>Token-back promise</h3><p>If a lesson doesn't match its description, report it and your token is returned.</p></article>
+      </div>
+
+      <div class="trust-grid">
+        <article class="dash-card guidelines" id="guidelines">
+          <h3>Community guidelines</h3>
+          <ol class="guide-list">
+            <li><strong>Be respectful.</strong> Treat every learner and teacher with patience and kindness. No harassment, discrimination or pressure of any kind.</li>
+            <li><strong>Describe lessons honestly.</strong> Only offer skills you are genuinely comfortable teaching, and make sure the listing matches what you deliver.</li>
+            <li><strong>Meet safely.</strong> Start online or meet in a public place such as a library or campus café. Never share your home address before you feel comfortable.</li>
+            <li><strong>Keep it token-only.</strong> No cash, gifts or side payments. Every lesson costs exactly one token.</li>
+            <li><strong>Show up or cancel early.</strong> Cancel at least 24 hours ahead so the other person isn't left waiting.</li>
+            <li><strong>Speak up.</strong> If something feels wrong, end the session and report it. Reports are reviewed by the team.</li>
+          </ol>
+        </article>
+
+        <article class="dash-card good-lesson" id="good-lesson">
+          <h3>What makes a good lesson?</h3>
+          <ul class="good-list">
+            <li><span>🎯</span><div><strong>One clear outcome</strong><p>"By the end, you'll be able to…" Keep it to one achievable goal.</p></div></li>
+            <li><span>⏱</span><div><strong>The right length</strong><p>Fit the topic to 15, 30 or 60 minutes. Less is more for a first lesson.</p></div></li>
+            <li><span>🧭</span><div><strong>Start where they are</strong><p>Ask what they already know in the first two minutes and adjust.</p></div></li>
+            <li><span>🛠</span><div><strong>Hands-on practice</strong><p>Let the learner try it themselves rather than just watching you.</p></div></li>
+            <li><span>📝</span><div><strong>Something to take away</strong><p>A cheat sheet, recipe or next step helps the lesson stick.</p></div></li>
+          </ul>
+        </article>
+
+        <article class="dash-card profile-card">
+          <h3>Your profile</h3>
+          <div class="profile-head">
+            <span class="avatar big-avatar" aria-hidden="true">Y</span>
+            <div><strong>You</strong><span id="verifyStatus" class="verify-pill unverified">Email not verified</span></div>
+          </div>
+          <dl class="profile-stats">
+            <div><dt>Lessons taught</dt><dd id="profTaught">0</dd></div>
+            <div><dt>Lessons completed</dt><dd id="profCompleted">0</dd></div>
+            <div><dt>Reviews written</dt><dd id="profReviews">0</dd></div>
+          </dl>
+          <button type="button" class="button" id="verifyBtn">Simulate email verification</button>
+          <p class="small">In the pilot you would confirm a university email address such as name@university.ie. This demo does not ask for or store any email.</p>
+          <button type="button" class="textbutton" id="reportGeneral">Report a concern about another member</button>
+        </article>
+      </div>
     </section>
 
     <section id="pilot" class="section pilot-section">
       <div class="pilot-copy">
+        <img class="pilot-illus" src="illustrations/pilot-clipboard.svg" alt="">
         <p class="eyebrow">HELP SHAPE THE FIRST PILOT</p>
         <h2>What would you exchange?</h2>
         <p>Tell us what you would genuinely like to learn and whether you would be willing to teach in return. This is a separate research exercise, not a booking.</p>
@@ -149,7 +388,7 @@
         <label>What would you like to learn?
           <select name="learn" id="pilotLearn" required>
             <option value="">Choose a skill</option>
-            <option>Excel for everyday work</option><option>Conversational Spanish</option><option>Better photography basics</option><option>Your first Python script</option><option>Guitar for complete beginners</option><option>Student-friendly meal prep</option><option>Something else</option>
+            <option>Beginner Spanish Conversation</option><option>Excel Formulas for Work</option><option>Your First Python Script</option><option>Guitar Chords for Beginners</option><option>Budget Meal Prep</option><option>Smartphone Photography</option><option>Couch to 5K Running</option><option>Interview Practice: Mock Questions</option><option>Business French Phrases</option><option>Something else</option>
           </select>
         </label>
         <label>Would you teach a lesson to earn a learning token?
@@ -176,13 +415,14 @@
         <details><summary>Do I need to be an expert to teach?</summary><p>No. In the proposed marketplace, you would share a skill you are comfortable explaining to a beginner. Describe your experience honestly.</p></details>
         <details><summary>How much does a lesson cost?</summary><p>The demo uses one token per lesson, regardless of the displayed duration. Tokens are not money and have no cash value. We are testing whether this exchange feels fair.</p></details>
         <details><summary>Can I book a real lesson today?</summary><p>Not yet. The current website is a university pretotype with sample listings and simulated tokens. Pilot interest is separate from a demo booking.</p></details>
+        <details><summary>How do you keep members safe?</summary><p>In the proposed pilot, every member verifies a university email, only learners who completed a lesson can review it, and anyone can report inappropriate behaviour or a lesson that doesn't match its description. See the <a href="#trust">Trust &amp; safety</a> section and community guidelines.</p></details>
         <details><summary>Where are my tokens and responses stored?</summary><p>Demo activity and any locally saved pilot response are stored on this browser only. No account, central database or payment system is connected.</p></details>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <a href="#faq" class="footer-link">FAQs</a>
+    <a href="#faq" class="footer-link">FAQs</a> <a href="#guidelines" class="footer-link">Community guidelines</a>
     <strong>Knowledge for Knowledge</strong>
     <p>University project pretotype. No real bookings, payments or token transfers take place.</p>
     <button id="reset" class="textbutton" type="button">Reset demo</button>
@@ -192,8 +432,10 @@
     <button id="close" class="close" aria-label="Close" type="button">×</button>
     <h2 id="modalTitle"></h2>
     <p id="modalText"></p>
+    <div id="modalBody"></div>
     <div id="modalActions" class="actions"></div>
   </dialog>
   <div id="toast" role="status" aria-live="polite"></div>
+  <div id="fx" aria-hidden="true"></div>
 </body>
 </html>
